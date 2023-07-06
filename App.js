@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "start",
+    justifyContent: "flex-start",
     padding: 10,
   },
   title: {

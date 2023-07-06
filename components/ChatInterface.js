@@ -8,6 +8,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
 } from "react-native";
 
 const ChatInterface = () => {
@@ -15,16 +16,34 @@ const ChatInterface = () => {
   const [messages, setMessages] = useState([
     {
       sender: "Bot",
-      text: "Hello, I am a chatbot for Ford here to help you with any questions. How can I assist you today?",
+      text: "Hello, I am a chatbot for Ford here to help you with any questions. Enter (A) for chatbot, (B) for locations, or (C) for payment calculator. How can I assist you today?",
     },
   ]);
+  const [count, setCount] = useState(1);
+  const [options, setOptions] = useState([
+    "A. Chatbot",
+    "B. Locations",
+    "C. Payment Calculator",
+  ]);
 
-  const sendMessage = () => {
+  const sendMessage = (optionMessage) => {
     // Add the user's message to the messages list
-    setMessages((prevState) => [
-      ...prevState,
-      { sender: "User", text: message },
-    ]);
+
+    if (count === 1) {
+      setMessages((prevState) => [
+        ...prevState,
+        { sender: "User", text: optionMessage },
+      ]);
+      setCount(2);
+    } else {
+      setMessages((prevState) => [
+        ...prevState,
+        { sender: "User", text: message },
+      ]);
+    }
+
+    // Remove options after the user sends their first message
+    setOptions([]);
 
     // Send a POST request to your API with the user's message
     fetch("http://fordchat.franklinyin.com/quer", {
@@ -32,7 +51,7 @@ const ChatInterface = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ quer: message }),
+      body: JSON.stringify({ quer: message, debug: true }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -69,6 +88,21 @@ const ChatInterface = () => {
             </View>
           )}
         />
+        {options.length > 0 && (
+          <View style={styles.optionsContainer}>
+            {options.map((option) => (
+              <TouchableOpacity
+                key={option}
+                style={styles.optionButton}
+                onPress={() => {
+                  sendMessage(option);
+                }}
+              >
+                <Text>{option}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -116,6 +150,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginRight: 10,
   },
+  optionsContainer: {
+    flexDirection: "column",
+    justifyContent: "space-around",
+    marginTop: 20,
+  },
+  optionButton: {
+    backgroundColor: "#f0f0f0",
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
+  },
   inputContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -136,5 +181,4 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
-
 export default ChatInterface;
