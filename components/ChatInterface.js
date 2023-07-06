@@ -16,14 +16,14 @@ const ChatInterface = () => {
   const [messages, setMessages] = useState([
     {
       sender: "Bot",
-      text: "Hello, I am a chatbot for Ford here to help you with any questions. Enter (A) for chatbot, (B) for locations, or (C) for payment calculator. How can I assist you today?",
+      text: "Hello, I am a Ford ChatBot here to help you with any questions. Please select one of the following options.",
     },
   ]);
   const [count, setCount] = useState(1);
   const [options, setOptions] = useState([
-    "A. Chatbot",
-    "B. Locations",
-    "C. Payment Calculator",
+    "Chatbot",
+    "Locations",
+    "Payment Calculator",
   ]);
 
   const sendMessage = (optionMessage) => {
@@ -110,8 +110,11 @@ const ChatInterface = () => {
           onChangeText={setMessage}
           value={message}
           placeholder="Enter your message here"
+          styles={styles.input}
         />
-        <Button title="Send" onPress={sendMessage} />
+        <TouchableOpacity style={styles.optionButton2} onPress={sendMessage}>
+          <Text>Send</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
@@ -154,12 +157,21 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-around",
     marginTop: 20,
+    position: "absolute",
+    bottom: "56%",
+    left: "3%",
   },
   optionButton: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#67e4f0",
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
+  },
+  optionButton2: {
+    backgroundColor: "#67e4f0",
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 0,
   },
   inputContainer: {
     flexDirection: "row",
@@ -179,6 +191,9 @@ const styles = StyleSheet.create({
     padding: 10,
     marginRight: 10,
     marginLeft: 10,
+  },
+  sendButton: {
+    color: "#ccc",
   },
 });
 export default ChatInterface;
