@@ -25,8 +25,11 @@ const ChatInterface = () => {
     "Locations",
     "Payment Calculator",
   ]);
+  const [selected, setSelected] = useState("");
 
   const sendMessage = (optionMessage) => {
+    console.log(selected);
+
     // Add the user's message to the messages list
 
     if (count === 1) {
@@ -34,39 +37,82 @@ const ChatInterface = () => {
         ...prevState,
         { sender: "User", text: optionMessage },
       ]);
+
+      setSelected(optionMessage);
+      //timout
+
+      switch (optionMessage) {
+        case "Chatbot":
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              { sender: "Bot", text: "How may I assist you?" },
+            ]);
+          }, 500);
+          break;
+        case "Locations":
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              { sender: "Bot", text: "Please enter a zip code" },
+            ]);
+          }, 500);
+          break;
+        case "Payment Calculator":
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              { sender: "Bot", text: "Payment calculator" },
+            ]);
+          }, 500);
+          break;
+      }
+
       setCount(2);
+      setOptions([]);
     } else {
-      setMessages((prevState) => [
-        ...prevState,
-        { sender: "User", text: message },
-      ]);
+      switch (selected) {
+        case "Chatbot":
+          console.log("to");
+          setMessages((prevState) => [
+            ...prevState,
+            { sender: "User", text: message },
+          ]);
+
+          // Remove options after the user sends their first message
+          setOptions([]);
+
+          // Send a POST request to your API with the user's message
+          fetch("http://fordchat.franklinyin.com/quer", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ quer: message, debug: true }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Add the bot's response to the messages list
+              setMessages((prevState) => [
+                ...prevState,
+                { sender: "Bot", text: data.response },
+              ]);
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+
+          // Clear the message input
+          setMessage("");
+          break;
+        case "Locations":
+          console.log("2");
+          break;
+        case "Payment Calculator":
+          console.log("3");
+          break;
+      }
     }
-
-    // Remove options after the user sends their first message
-    setOptions([]);
-
-    // Send a POST request to your API with the user's message
-    fetch("http://fordchat.franklinyin.com/quer", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ quer: message, debug: true }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Add the bot's response to the messages list
-        setMessages((prevState) => [
-          ...prevState,
-          { sender: "Bot", text: data.response },
-        ]);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-
-    // Clear the message input
-    setMessage("");
   };
 
   return (
@@ -141,7 +187,7 @@ const styles = StyleSheet.create({
   message: (isUser) => ({
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: isUser ? "#d2f7dc" : "#f0f0f0",
+    backgroundColor: isUser ? "#87e5ed" : "#f0f0f0",
     marginBottom: 10,
     padding: 10,
     borderRadius: 5,
