@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import data from "../data/zipLocations.json";
+import carData from "../data/car_data.json";
 
 const ChatInterface = () => {
   const [message, setMessage] = useState("");
@@ -68,6 +69,7 @@ const ChatInterface = () => {
   function extractFiveDigitString(inputString) {
     const regex = /\b\d{5}\b/g;
     const matches = inputString.match(regex);
+    console.log("matches:" + matches);
     if (matches && matches.length > 0) {
       return matches[0];
     }
@@ -75,6 +77,8 @@ const ChatInterface = () => {
   }
   const findLocations = async () => {
     const zip = extractFiveDigitString(message);
+    console.log("zip: " + zip);
+    if (zip === null) return null;
 
     try {
       const result = await findLatLong(zip);
@@ -164,7 +168,7 @@ const ChatInterface = () => {
           setTimeout(() => {
             setMessages((prevState) => [
               ...prevState,
-              { sender: "Bot", text: "Payment calculator" },
+              { sender: "Bot", text: "Please select a car model" },
             ]);
           }, 500);
           break;
@@ -214,38 +218,40 @@ const ChatInterface = () => {
           ]);
           //LOCATION FUNCTION
           findLocations().then((loc) => {
-            setMessages((prevState) => [
-              ...prevState,
-              {
-                sender: "Bot",
-                text: `The closest locations to your Zip code are the following:\n${loc}`,
-              },
-            ]);
-
-            /*
-            const places = loc.split("..");
-            console.log(places);
-            for (let i = 0; i < places.length - 1; i++) {
-              if (i === 0) {
-                setMessages((m) => [
-                  ...m,
-                  { msg: places[i], author: "Ford Chat" },
-                ]);
-              } else {
-                setMessages((m) => [...m, { msg: places[i], author: "" }]);
-              }
-            } */
-            // blockQueries.current = false;
+            if (loc === null) {
+              setMessages((prevState) => [
+                ...prevState,
+                {
+                  sender: "Bot",
+                  text: `Incorrect Input`,
+                },
+              ]);
+            } else {
+              setMessages((prevState) => [
+                ...prevState,
+                {
+                  sender: "Bot",
+                  text: `The closest locations to your Zip code are the following:\n${loc}`,
+                },
+              ]);
+            }
           });
           setMessage("");
           console.log("2");
           break;
         case "Payment Calculator":
+          console.log("a");
           setMessages((prevState) => [
             ...prevState,
             { sender: "User", text: message },
           ]);
-          console.log("3");
+          //console.log(carData.list);
+          let uniqueModels = [
+            ...new Set(carData.list.map((item) => item.model)),
+          ];
+          uniqueModels.forEach((item) => {
+            console.log(`Model: ${item}`);
+          });
           break;
       }
     }
