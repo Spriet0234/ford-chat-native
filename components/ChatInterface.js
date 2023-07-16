@@ -22,13 +22,11 @@ const ChatInterface = () => {
       text: "What's your name?",
     },
   ]);
+
   const [count, setCount] = useState(0);
-  // const [options, setOptions] = useState([
-  //   "Chatbot",
-  //   "Locations",
-  //   "Payment Calculator",
-  // ]);
+  const [options, setOptions] = useState([]);
   const [selected, setSelected] = useState("");
+  const [name, setName] = useState("");
 
   //MAP CODE--------------------------
   function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -135,15 +133,16 @@ const ChatInterface = () => {
   //MAP CODE--------------------------
 
   const sendMessage = (optionMessage) => {
-    setMessages((prevState) => [
-      ...prevState,
-      { sender: "User", text: message },
-    ]);
     console.log(selected);
 
     // Add the user's message to the messages list
 
     if (count === 0) {
+      setMessages((prevState) => [
+        ...prevState,
+        { sender: "User", text: message },
+      ]);
+      setName(message);
       setTimeout(() => {
         setMessages((prevState) => [
           ...prevState,
@@ -152,10 +151,17 @@ const ChatInterface = () => {
             text: `Welcome, ${message}! What would you like help with today?`,
           },
         ]);
+        setOptions([
+          "Buying a Ford",
+          "I'm an existing owner",
+          "Info about Ford",
+          "Negotiation Assistance",
+        ]);
         // code to run after 1 second
       }, 1000);
 
-      /*
+      setCount(1);
+    } else if (count === 1) {
       setMessages((prevState) => [
         ...prevState,
         { sender: "User", text: optionMessage },
@@ -165,15 +171,25 @@ const ChatInterface = () => {
       //timout
 
       switch (optionMessage) {
-        case "Chatbot":
+        case "Buying a Ford":
           setTimeout(() => {
             setMessages((prevState) => [
               ...prevState,
-              { sender: "Bot", text: "How may I assist you?" },
+              {
+                sender: "Bot",
+                text: `What info would you like to know ${name}?`,
+              },
+            ]);
+            setOptions([
+              "Info about a specific car",
+              "Car recommendation",
+              "Car pricing estimator",
+              "Find a dealership, Schedule a test drive",
             ]);
           }, 500);
+
           break;
-        case "Locations":
+        case "I'm an existing owner":
           setTimeout(() => {
             setMessages((prevState) => [
               ...prevState,
@@ -181,7 +197,7 @@ const ChatInterface = () => {
             ]);
           }, 500);
           break;
-        case "Payment Calculator":
+        case "Info about Ford":
           setTimeout(() => {
             setMessages((prevState) => [
               ...prevState,
@@ -189,10 +205,30 @@ const ChatInterface = () => {
             ]);
           }, 500);
           break;
+        case "Negotiation Assistance":
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              { sender: "Bot", text: "Please select a car model" },
+            ]);
+          }, 500);
+          break;
+        case "Info about a specific car":
+          setOptions([]);
+          break;
+        case "Car recommendation":
+          setOptions([]);
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              {
+                sender: "Bot",
+                text: "Do you have specific needs in mind, or would you like to fill out our questionnaire?",
+              },
+            ]);
+            setOptions(["Ask my own questions", "Take Questionnaire"]);
+          }, 500);
       }
-
-      setCount(2);
-      setOptions([]); */
     } else {
       switch (selected) {
         case "Chatbot":
@@ -328,6 +364,21 @@ const ChatInterface = () => {
             </View>
           )}
         />
+        {options.length > 0 && (
+          <View style={styles.optionsContainer}>
+            {options.map((option) => (
+              <TouchableOpacity
+                key={option}
+                style={styles.optionButton}
+                onPress={() => {
+                  sendMessage(option);
+                }}
+              >
+                <Text>{option}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
       </View>
       <View style={styles.inputContainer}>
         <View style={styles.inputWithButton}>
@@ -411,6 +462,26 @@ const styles = StyleSheet.create({
   botImage: {
     height: 38,
     width: 38,
+  },
+  optionsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    marginBottom: 10,
+  },
+  optionButton: {
+    marginRight: 10,
+    backgroundColor: "#E7EBF2",
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
 });
 export default ChatInterface;
