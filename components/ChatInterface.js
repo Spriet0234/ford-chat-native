@@ -301,6 +301,27 @@ const ChatInterface = () => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.message(item.sender === "User")}>
+              {item.sender !== "User" && (
+                <View
+                  style={{
+                    backgroundColor: "#00095B",
+                    width: 55,
+                    height: 55,
+                    borderRadius: 150 / 2,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 10,
+                    marginRight: 10,
+                    marginLeft: -5,
+                  }}
+                >
+                  <Image
+                    style={styles.botImage}
+                    source={require("../assets/henrai.png")}
+                  />
+                </View>
+              )}
+
               <View style={styles.messageContent(item.sender === "User")}>
                 <Text style={{ color: "white" }}>{item.text}</Text>
               </View>
@@ -341,9 +362,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     marginBottom: 0,
   },
-  chatList: {
-    flex: 1,
-  },
+  chatList: {},
   message: (isUser) => ({
     flexDirection: "row",
     justifyContent: isUser ? "flex-end" : "flex-start",
@@ -352,6 +371,8 @@ const styles = StyleSheet.create({
   }),
   messageContent: (isUser) => ({
     backgroundColor: isUser ? "#1D74F5" : "#00095B",
+    borderTopLeftRadius: isUser ? 20 : 3,
+    borderBottomLeftRadius: isUser ? 20 : 30,
     borderRadius: 20,
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -386,6 +407,10 @@ const styles = StyleSheet.create({
   img2: {
     width: 100,
     height: 50,
+  },
+  botImage: {
+    height: 38,
+    width: 38,
   },
 });
 export default ChatInterface;
