@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 
 export default function HomePage({ navigation }) {
   const [name, setName] = useState("");
@@ -11,38 +19,85 @@ export default function HomePage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Ford Chatbot</Text>
-      <Text style={styles.label}>Please enter your name:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter your name"
-        onChangeText={(text) => setName(text)}
-        value={name}
-      />
-      <Button title="Submit" onPress={handleSubmit} />
+      <View
+        style={{
+          backgroundColor: "white",
+          alignItems: "center",
+          width: "100%",
+          borderBottomColor: "black",
+          borderBottomWidth: 1,
+          padding: 20,
+          marginBottom: 50,
+        }}
+      >
+        <Image
+          style={styles.img2}
+          source={require("../assets/header.png")}
+        ></Image>
+      </View>
+      <View
+        style={{
+          backgroundColor: "#00095B",
+          width: 150,
+          height: 150,
+          borderRadius: 150 / 2,
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: 10,
+        }}
+      >
+        <Image style={styles.img} source={require("../assets/henrai.png")} />
+      </View>
+      <View
+        style={{
+          padding: 40,
+        }}
+      >
+        <Text style={{ fontSize: 23, textAlign: "center" }}>
+          Hey there and welcome!
+        </Text>
+        <Text style={{ fontSize: 23, textAlign: "center" }}>
+          I am Henrai, a Ford chatbot to help you on you journey with us.
+        </Text>
+      </View>
+
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={{ fontSize: 20, color: "white" }}>Lets Get Started</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 60,
     flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 10,
+    alignItems: "center",
+    backgroundColor: "white",
+    justifyContent: "flex-start",
   },
   title: {
     fontSize: 24,
     textAlign: "center",
     marginBottom: 20,
   },
-  label: {
-    fontSize: 18,
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 10,
+
+  button: {
+    alignItems: "center",
+    backgroundColor: "#00095B",
+    width: 220,
+    height: 50,
     padding: 10,
+    borderRadius: 20,
+
+    marginTop: 20,
+  },
+  img: {
+    width: 100,
+    height: 100,
+  },
+  img2: {
+    width: 100,
+    height: 50,
   },
 });

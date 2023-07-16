@@ -12,8 +12,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Chat-Interface" component={ChatInterface} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Chat-Interface"
+          component={ChatInterface}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
       {/* <View style={styles.container}>
         <Text style={styles.title}>Ford Chat Bot</Text>
