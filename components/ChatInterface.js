@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import data from "../data/zipLocations.json";
 import carData from "../data/car_data.json";
@@ -18,15 +19,15 @@ const ChatInterface = () => {
   const [messages, setMessages] = useState([
     {
       sender: "Bot",
-      text: "Hello, I am a Ford ChatBot here to help you with any questions. Please select one of the following options.",
+      text: "What's your name?",
     },
   ]);
-  const [count, setCount] = useState(1);
-  const [options, setOptions] = useState([
-    "Chatbot",
-    "Locations",
-    "Payment Calculator",
-  ]);
+  const [count, setCount] = useState(0);
+  // const [options, setOptions] = useState([
+  //   "Chatbot",
+  //   "Locations",
+  //   "Payment Calculator",
+  // ]);
   const [selected, setSelected] = useState("");
 
   //MAP CODE--------------------------
@@ -134,11 +135,27 @@ const ChatInterface = () => {
   //MAP CODE--------------------------
 
   const sendMessage = (optionMessage) => {
+    setMessages((prevState) => [
+      ...prevState,
+      { sender: "User", text: message },
+    ]);
     console.log(selected);
 
     // Add the user's message to the messages list
 
-    if (count === 1) {
+    if (count === 0) {
+      setTimeout(() => {
+        setMessages((prevState) => [
+          ...prevState,
+          {
+            sender: "Bot",
+            text: `Welcome, ${message}! What would you like help with today?`,
+          },
+        ]);
+        // code to run after 1 second
+      }, 1000);
+
+      /*
       setMessages((prevState) => [
         ...prevState,
         { sender: "User", text: optionMessage },
@@ -175,7 +192,7 @@ const ChatInterface = () => {
       }
 
       setCount(2);
-      setOptions([]);
+      setOptions([]); */
     } else {
       switch (selected) {
         case "Chatbot":
@@ -186,7 +203,7 @@ const ChatInterface = () => {
           ]);
 
           // Remove options after the user sends their first message
-          setOptions([]);
+          //  setOptions([]);
 
           // Send a POST request to your API with the user's message
           fetch("http://fordchat.franklinyin.com/quer", {
@@ -262,6 +279,21 @@ const ChatInterface = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
+      <View
+        style={{
+          backgroundColor: "white",
+          alignItems: "center",
+          width: "100%",
+          borderBottomColor: "black",
+          borderBottomWidth: 1,
+          padding: 20,
+        }}
+      >
+        <Image
+          style={styles.img2}
+          source={require("../assets/header.png")}
+        ></Image>
+      </View>
       <View style={styles.chatContainer}>
         <FlatList
           data={messages}
@@ -269,40 +301,27 @@ const ChatInterface = () => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.message(item.sender === "User")}>
-              <View style={styles.messageContent}>
-                <Text style={styles.sender}>{item.sender}</Text>
-                <Text>{item.text}</Text>
+              <View style={styles.messageContent(item.sender === "User")}>
+                <Text style={{ color: "white" }}>{item.text}</Text>
               </View>
             </View>
           )}
         />
-        {options.length > 0 && (
-          <View style={styles.optionsContainer}>
-            {options.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={styles.optionButton}
-                onPress={() => {
-                  sendMessage(option);
-                }}
-              >
-                <Text>{option}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
       </View>
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          onChangeText={setMessage}
-          value={message}
-          placeholder="Enter your message here"
-          styles={styles.input}
-        />
-        <TouchableOpacity style={styles.optionButton2} onPress={sendMessage}>
-          <Text>Send</Text>
-        </TouchableOpacity>
+        <View style={styles.inputWithButton}>
+          <TextInput
+            style={styles.input}
+            onChangeText={setMessage}
+            value={message}
+            placeholder="Enter your message here"
+          />
+          {message ? (
+            <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+              <Text>Send</Text>
+            </TouchableOpacity>
+          ) : null}
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -312,76 +331,61 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
+    marginTop: 50,
+    backgroundColor: "white",
   },
   chatContainer: {
     flex: 1,
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: "#ccc",
-    padding: 10,
+    padding: 0,
     margin: 10,
     backgroundColor: "#fff",
-    marginBottom: 50,
+    marginBottom: 0,
   },
   chatList: {
     flex: 1,
   },
   message: (isUser) => ({
     flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: isUser ? "#87e5ed" : "#f0f0f0",
+    justifyContent: isUser ? "flex-end" : "flex-start",
     marginBottom: 10,
     padding: 10,
-    borderRadius: 5,
   }),
-  messageContent: {
-    flexShrink: 1,
-  },
-  sender: {
-    fontWeight: "bold",
-    marginRight: 10,
-  },
-  optionsContainer: {
-    flexDirection: "column",
-    justifyContent: "space-around",
-    marginTop: 20,
-    position: "absolute",
-    bottom: "56%",
-    left: "3%",
-  },
-  optionButton: {
-    backgroundColor: "#67e4f0",
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
-  },
-  optionButton2: {
-    backgroundColor: "#67e4f0",
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 0,
-  },
+  messageContent: (isUser) => ({
+    backgroundColor: isUser ? "#1D74F5" : "#00095B",
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    maxWidth: "70%",
+  }),
   inputContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    padding: 0,
-    backgroundColor: "#fff",
-    marginBottom: 20,
-    marginTop: -30,
+    padding: 20,
+    backgroundColor: "#00095B",
+    marginBottom: 0,
+  },
+  inputWithButton: {
+    flexDirection: "row",
+    flex: 1,
+    borderRadius: 20,
+    backgroundColor: "#eee",
+    alignItems: "center",
+    paddingRight: 10,
   },
   input: {
     flex: 1,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 5,
     padding: 10,
-    marginRight: 10,
-    marginLeft: 10,
+    fontSize: 16,
   },
   sendButton: {
+    padding: 10,
     color: "#ccc",
+  },
+  img2: {
+    width: 100,
+    height: 50,
   },
 });
 export default ChatInterface;
