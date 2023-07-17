@@ -24,9 +24,8 @@ export default function HomePage({ navigation }) {
           backgroundColor: "white",
           alignItems: "center",
           width: "100%",
-          borderBottomColor: "black",
-          borderBottomWidth: 1,
-          padding: 20,
+
+          padding: 10,
           marginBottom: 50,
         }}
       >
@@ -70,7 +69,7 @@ export default function HomePage({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 60,
+    paddingTop: 40,
     flex: 1,
     alignItems: "center",
     backgroundColor: "white",

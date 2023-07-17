@@ -10,12 +10,14 @@ import {
   Platform,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from "react-native";
 import data from "../data/zipLocations.json";
 import carData from "../data/car_data.json";
 
 const ChatInterface = () => {
   const [message, setMessage] = useState("");
+  const [optionMess, setOptionMess] = useState("");
   const [messages, setMessages] = useState([
     {
       sender: "Bot",
@@ -132,7 +134,24 @@ const ChatInterface = () => {
 
   //MAP CODE--------------------------
 
+  //SEND MESSAGES
+
   const sendMessage = (optionMessage) => {
+    if (optionMessage === null) {
+      console.log("niull");
+    }
+    console.log("here");
+    console.log(optionMessage);
+    let m = String(optionMessage);
+    m = m.trim();
+    if (m === null || m === "") {
+      console.log("empty");
+    }
+
+    if (m.length === 0) {
+      console.log("empty");
+    }
+
     console.log(selected);
 
     // Add the user's message to the messages list
@@ -158,112 +177,43 @@ const ChatInterface = () => {
           "Negotiation Assistance",
         ]);
         // code to run after 1 second
-      }, 1000);
-
+      }, 500);
+      setMessage("");
       setCount(1);
-    } else if (count === 1) {
+    } else if (count === 2 || (optionMessage === "null" && count !== 0)) {
+      setOptions([]);
+      console.log("to");
       setMessages((prevState) => [
         ...prevState,
-        { sender: "User", text: optionMessage },
+        { sender: "User", text: message },
       ]);
 
-      setSelected(optionMessage);
-      //timout
+      // Remove options after the user sends their first message
+      //  setOptions([]);
 
-      switch (optionMessage) {
-        case "Buying a Ford":
-          setTimeout(() => {
-            setMessages((prevState) => [
-              ...prevState,
-              {
-                sender: "Bot",
-                text: `What info would you like to know ${name}?`,
-              },
-            ]);
-            setOptions([
-              "Info about a specific car",
-              "Car recommendation",
-              "Car pricing estimator",
-              "Find a dealership, Schedule a test drive",
-            ]);
-          }, 500);
-
-          break;
-        case "I'm an existing owner":
-          setTimeout(() => {
-            setMessages((prevState) => [
-              ...prevState,
-              { sender: "Bot", text: "Please enter a zip code" },
-            ]);
-          }, 500);
-          break;
-        case "Info about Ford":
-          setTimeout(() => {
-            setMessages((prevState) => [
-              ...prevState,
-              { sender: "Bot", text: "Please select a car model" },
-            ]);
-          }, 500);
-          break;
-        case "Negotiation Assistance":
-          setTimeout(() => {
-            setMessages((prevState) => [
-              ...prevState,
-              { sender: "Bot", text: "Please select a car model" },
-            ]);
-          }, 500);
-          break;
-        case "Info about a specific car":
-          setOptions([]);
-          break;
-        case "Car recommendation":
-          setOptions([]);
-          setTimeout(() => {
-            setMessages((prevState) => [
-              ...prevState,
-              {
-                sender: "Bot",
-                text: "Do you have specific needs in mind, or would you like to fill out our questionnaire?",
-              },
-            ]);
-            setOptions(["Ask my own questions", "Take Questionnaire"]);
-          }, 500);
-      }
-    } else {
-      switch (selected) {
-        case "Chatbot":
-          console.log("to");
+      // Send a POST request to your API with the user's message
+      fetch("http://fordchat.franklinyin.com/quer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ quer: message, debug: true }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Add the bot's response to the messages list
           setMessages((prevState) => [
             ...prevState,
-            { sender: "User", text: message },
+            { sender: "Bot", text: data.response },
           ]);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
 
-          // Remove options after the user sends their first message
-          //  setOptions([]);
-
-          // Send a POST request to your API with the user's message
-          fetch("http://fordchat.franklinyin.com/quer", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ quer: message, debug: true }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              // Add the bot's response to the messages list
-              setMessages((prevState) => [
-                ...prevState,
-                { sender: "Bot", text: data.response },
-              ]);
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-            });
-
-          // Clear the message input
-          setMessage("");
-          break;
+      // Clear the message input
+      setMessage("");
+      /*
         case "Locations":
           setMessages((prevState) => [
             ...prevState,
@@ -306,6 +256,142 @@ const ChatInterface = () => {
             console.log(`Model: ${item}`);
           });
           break;
+      } */
+    } else if (count === 1) {
+      console.log(count);
+      setMessages((prevState) => [
+        ...prevState,
+        { sender: "User", text: optionMessage },
+      ]);
+
+      setSelected(optionMessage);
+      //timout
+
+      switch (optionMessage) {
+        case "Buying a Ford":
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              {
+                sender: "Bot",
+                text: `What info would you like to know ${name}?`,
+              },
+            ]);
+            setOptions([
+              "Info about a specific car",
+              "Car recommendation",
+              "Car pricing estimator",
+              "Find a dealership",
+              "Schedule a test drive",
+            ]);
+          }, 500);
+
+          break;
+        case "I'm an existing owner":
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              {
+                sender: "Bot",
+                text: "Please enter your Ford credentials in the login page below:",
+              },
+            ]);
+          }, 500);
+          break;
+        case "Info about Ford":
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              { sender: "Bot", text: "Please select a car model" },
+            ]);
+          }, 500);
+          break;
+        case "Negotiation Assistance":
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              { sender: "Bot", text: "Please select a car model" },
+            ]);
+          }, 500);
+          break;
+        case "Info about a specific car":
+          setOptions([]);
+          break;
+        case "Car recommendation":
+          setOptions([]);
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              {
+                sender: "Bot",
+                text: "Do you have specific needs in mind, or would you like to fill out our questionnaire?",
+              },
+            ]);
+            setOptions(["Ask my own questions", "Take Questionnaire"]);
+          }, 500);
+          break;
+        case "Take Questionnaire":
+          setOptions([]);
+          setMessages((prevState) => [
+            ...prevState,
+            {
+              sender: "Bot",
+              text: "Alright, let's get started!",
+            },
+          ]);
+          setMessages((prevState) => [
+            ...prevState,
+            {
+              sender: "Bot",
+              text: "What is the budget for your dream car?",
+            },
+          ]);
+          break;
+        case "Ask my own questions":
+          setOptions([]);
+          setMessages((prevState) => [
+            ...prevState,
+            {
+              sender: "Bot",
+              text: "Alright, what are you wondering / Looking for?",
+            },
+          ]);
+          setCount(3);
+          break;
+        case "Find a dealership":
+          setOptions([]);
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              {
+                sender: "Bot",
+                text: "Please enter your zipcode below:",
+              },
+            ]);
+          }, 500);
+          break;
+        case "Find a dealership2":
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              {
+                sender: "Bot",
+                text: "Please enter your zipcode below:",
+              },
+            ]);
+          }, 500);
+          break;
+        default:
+          setTimeout(() => {
+            setMessages((prevState) => [
+              ...prevState,
+              {
+                sender: "Bot",
+                text: "Default",
+              },
+            ]);
+          }, 500);
+          break;
       }
     }
   };
@@ -318,17 +404,51 @@ const ChatInterface = () => {
       <View
         style={{
           backgroundColor: "white",
+          position: "absolute",
+          right: 17,
+          top: 1110,
+          zIndex: 100,
+          width: "92%",
+          height: 300,
+          opacity: 1,
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: "#113B7A1A",
+            flex: 1,
+          }}
+        >
+          <View>
+            <Text>HenrAI Menu</Text>
+          </View>
+          <View>
+            <View></View>
+            <View></View>
+            <View></View>
+            <View></View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={{
+          backgroundColor: "white",
           alignItems: "center",
           width: "100%",
-          borderBottomColor: "black",
-          borderBottomWidth: 1,
-          padding: 20,
+
+          padding: 10,
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "row",
         }}
       >
         <Image
           style={styles.img2}
           source={require("../assets/header.png")}
         ></Image>
+        <TouchableOpacity style={{ position: "absolute", right: 30 }}>
+          <Image source={require("../assets/sand.png")} />
+        </TouchableOpacity>
       </View>
       <View style={styles.chatContainer}>
         <FlatList
@@ -366,17 +486,19 @@ const ChatInterface = () => {
         />
         {options.length > 0 && (
           <View style={styles.optionsContainer}>
-            {options.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={styles.optionButton}
-                onPress={() => {
-                  sendMessage(option);
-                }}
-              >
-                <Text>{option}</Text>
-              </TouchableOpacity>
-            ))}
+            <ScrollView horizontal={true}>
+              {options.map((option) => (
+                <TouchableOpacity
+                  key={option}
+                  style={styles.optionButton}
+                  onPress={() => {
+                    sendMessage(option);
+                  }}
+                >
+                  <Text>{option}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
         )}
       </View>
@@ -389,7 +511,10 @@ const ChatInterface = () => {
             placeholder="Enter your message here"
           />
           {message ? (
-            <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+            <TouchableOpacity
+              style={styles.sendButton}
+              onPress={() => sendMessage("null")}
+            >
               <Text>Send</Text>
             </TouchableOpacity>
           ) : null}
@@ -403,7 +528,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    marginTop: 50,
+    paddingTop: 40,
     backgroundColor: "white",
   },
   chatContainer: {

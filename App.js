@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Home" headerMode="none">
         <Stack.Screen
           name="Home"
           component={Home}
@@ -23,28 +23,6 @@ export default function App() {
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
-      {/* <View style={styles.container}>
-        <Text style={styles.title}>Ford Chat Bot</Text>
-
-        <ChatInterface />
-        <StatusBar style="auto" />
-      </View> */}
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    padding: 10,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    marginTop: 60,
-    marginBottom: 20,
-  },
-});
