@@ -29,6 +29,7 @@ const ChatInterface = () => {
   const [options, setOptions] = useState([]);
   const [selected, setSelected] = useState("");
   const [name, setName] = useState("");
+  const [menuVisible, setMenuVisible] = useState(false);
 
   //MAP CODE--------------------------
   function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -401,35 +402,102 @@ const ChatInterface = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <View
-        style={{
-          backgroundColor: "white",
-          position: "absolute",
-          right: 17,
-          top: 1110,
-          zIndex: 100,
-          width: "92%",
-          height: 300,
-          opacity: 1,
-        }}
-      >
+      {menuVisible && (
         <View
           style={{
-            backgroundColor: "#113B7A1A",
-            flex: 1,
+            backgroundColor: "white",
+            position: "absolute",
+            right: 17,
+            top: 110,
+            zIndex: 100,
+            width: "92%",
+            height: "auto",
+            opacity: 1,
           }}
         >
-          <View>
-            <Text>HenrAI Menu</Text>
-          </View>
-          <View>
-            <View></View>
-            <View></View>
-            <View></View>
-            <View></View>
+          <View
+            style={{
+              backgroundColor: "#113B7A1A",
+              flex: 1,
+              borderRadius: 10,
+              padding: 15,
+            }}
+          >
+            <View
+              style={{
+                marginBottom: 10,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text style={{ fontSize: 16, fontWeight: 500 }}>HenrAI Menu</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  if (!menuVisible) {
+                    setMenuVisible(true);
+                    console.log("1");
+                  } else {
+                    setMenuVisible(false);
+                    console.log("2");
+                  }
+                }}
+              >
+                <Image source={require("../assets/x.png")}></Image>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#00095B",
+                  borderRadius: 5,
+                  padding: 10,
+                  marginBottom: 10,
+                }}
+              >
+                <Text style={{ color: "white", fontSize: 16, fontWeight: 500 }}>
+                  Buying a Ford
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#00095B",
+                  borderRadius: 5,
+                  padding: 10,
+                  marginBottom: 10,
+                }}
+              >
+                <Text style={{ color: "white", fontSize: 16, fontWeight: 500 }}>
+                  Existing Owner
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#00095B",
+                  borderRadius: 5,
+                  padding: 10,
+                  marginBottom: 10,
+                }}
+              >
+                <Text style={{ color: "white", fontSize: 16, fontWeight: 500 }}>
+                  Info About Ford
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#00095B",
+                  borderRadius: 5,
+                  padding: 10,
+                }}
+              >
+                <Text style={{ color: "white", fontSize: 16, fontWeight: 500 }}>
+                  Know my car's price
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
+      )}
       <View
         style={{
           backgroundColor: "white",
@@ -446,7 +514,18 @@ const ChatInterface = () => {
           style={styles.img2}
           source={require("../assets/header.png")}
         ></Image>
-        <TouchableOpacity style={{ position: "absolute", right: 30 }}>
+        <TouchableOpacity
+          style={{ position: "absolute", right: 30 }}
+          onPress={() => {
+            if (!menuVisible) {
+              setMenuVisible(true);
+              console.log("1");
+            } else {
+              setMenuVisible(false);
+              console.log("2");
+            }
+          }}
+        >
           <Image source={require("../assets/sand.png")} />
         </TouchableOpacity>
       </View>
