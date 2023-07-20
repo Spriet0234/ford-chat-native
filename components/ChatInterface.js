@@ -461,6 +461,75 @@ const ChatInterface = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={{
+                  backgroundColor: "white",
+                  color: "#00095B",
+                  borderRadius: 5,
+                  padding: 10,
+                  marginBottom: 0,
+                  borderColor: "#00095B",
+                  borderWidth: 1,
+                  marginTop: -10,
+                }}
+              >
+                <Text
+                  style={{ color: "#00095B", fontSize: 16, fontWeight: 500 }}
+                >
+                  Info on a specific Ford
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "white",
+                  color: "#00095B",
+                  borderRadius: 5,
+                  padding: 10,
+                  marginBottom: 0,
+                  borderColor: "#00095B",
+                  borderWidth: 1,
+                }}
+              >
+                <Text
+                  style={{ color: "#00095B", fontSize: 16, fontWeight: 500 }}
+                >
+                  Car recommendation
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "white",
+                  color: "#00095B",
+                  borderRadius: 5,
+                  padding: 10,
+                  marginBottom: 0,
+                  borderColor: "#00095B",
+                  borderWidth: 1,
+                }}
+              >
+                <Text
+                  style={{ color: "#00095B", fontSize: 16, fontWeight: 500 }}
+                >
+                  Car pricing estimator{" "}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "white",
+                  color: "#00095B",
+                  borderRadius: 5,
+                  padding: 10,
+                  marginBottom: 10,
+                  borderColor: "#00095B",
+                  borderWidth: 1,
+                }}
+              >
+                <Text
+                  style={{ color: "#00095B", fontSize: 16, fontWeight: 500 }}
+                >
+                  Find a dealership{" "}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
                   backgroundColor: "#00095B",
                   borderRadius: 5,
                   padding: 10,
