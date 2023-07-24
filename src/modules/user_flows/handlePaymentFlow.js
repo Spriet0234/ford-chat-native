@@ -1,7 +1,6 @@
 import trims from "../../jsons/trims.json";
 import EV from "../../jsons/EV.json";
 import carPrices from "../../jsons/carPrices.json";
-import '../../styles/App.css';
 import images from "../../images/image_link.json";
 
 export default function handlePaymentFlow(calcStep, model, setModel, query, setQuery, setMessages, setMenuButtons, setCalcButtons, blockQueries, setCalcStep, trim, setTrim, calcMode, setCalcMode, setLeaseStep, setFinanceStep, leaseStep, financeStep, changeChoice, setShowCalcButtons, setCalcHeadingText, payment, setPayment, origButtons, setOptionButtons) {

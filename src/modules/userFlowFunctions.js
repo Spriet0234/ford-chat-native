@@ -4,7 +4,6 @@ import { sendBotResponse, sendRecommendRequestToServer } from "./botResponseFunc
 import handleDealerFlow from "./user_flows/handleDealerFlow";
 import handlePaymentFlow from "./user_flows/handlePaymentFlow";
 import handleInfoFlow from "./user_flows/handleInfoFlow";
-import { BiRegistered } from "react-icons/bi";
 import images from "../images/image_link.json";
 
 export function handleUserInputFn(
