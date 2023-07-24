@@ -4,7 +4,7 @@ import {
     Text,
     Image
   } from "react-native";
-export default function ChatItem({author, msg}){
+export default function ChatItem({author, msg, line, darkMode, textSize, zip, locs, dropDownOptions, carInfoData, carInfoMode, carSpecInfo, setMessages, setMenuButtons, handleUserInput, selectedCar, setSelectedCar, tableFunctions, messageIndex, selectedCars}){
     return <View style={styles.message(author === "You")}>
     {author !== "You" && (
       <View

@@ -428,8 +428,25 @@ const toggleRecording = () => {
           data={messages}
           style={styles.chatList}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <ChatItem author = {item.author} msg = {item.msg}></ChatItem>
+          renderItem={({ item, index }) => (
+            <ChatItem author = {item.author} msg = {item.msg}
+            darkMode={darkMode}
+            textSize={textSize}
+            zip = {message.zip}
+            locs={message.locs}
+            dropDownOptions={dropDownOptions}
+            carInfoData={carInfoData[""+(index)]?carInfoData[""+(index)]:[[],[]]}
+            carInfoMode={carInfoMode}
+            setMessages={setMessages}
+            setMenuButtons={setMenuButtons}
+            handleUserInput={handleUserInput}
+            carSpecInfo = {message.carInfo}
+            selectedCar = {selectedCar}
+            setSelectedCar = {setSelectedCar}
+            tableFunctions={tableFunctions}
+            messageIndex={index}
+            selectedCars={selectedCars}
+            ></ChatItem>
           )}
         />
         {menuButtons}
