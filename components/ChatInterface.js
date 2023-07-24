@@ -776,7 +776,7 @@ const ChatInterface = () => {
           source={require("../assets/header.png")}
         ></Image>
         <TouchableOpacity
-          style={{ position: "absolute", right: 30 }}
+          style={{ position: "absolute", right: 30, zIndex: 2 }}
           onPress={() => {
             if (!menuVisible) {
               setOpen1(false);
@@ -789,7 +789,7 @@ const ChatInterface = () => {
             }
           }}
         >
-          <Image source={require("../assets/sand.png")} />
+          <Image style={styles.img3} source={require("../assets/sand.png")} />
         </TouchableOpacity>
       </View>
       <View style={styles.chatContainer}>
@@ -925,6 +925,10 @@ const styles = StyleSheet.create({
   img2: {
     width: 100,
     height: 50,
+  },
+  img3: {
+    width: 50,
+    height: 40,
   },
   botImage: {
     height: 38,
