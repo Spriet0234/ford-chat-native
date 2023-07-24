@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import data from "../data/zipLocations.json";
 import carData from "../data/car_data.json";
+import Login from "./login";
 
 const ChatInterface = () => {
   const [message, setMessage] = useState("");
@@ -439,11 +440,13 @@ const ChatInterface = () => {
               <TouchableOpacity
                 onPress={() => {
                   if (!menuVisible) {
+                    setOpen1(false);
+                    setOpen2(false);
+                    setOpen3(false);
+                    setOpen4(false);
                     setMenuVisible(true);
-                    console.log("1");
                   } else {
                     setMenuVisible(false);
-                    console.log("2");
                   }
                 }}
               >
@@ -776,11 +779,13 @@ const ChatInterface = () => {
           style={{ position: "absolute", right: 30 }}
           onPress={() => {
             if (!menuVisible) {
+              setOpen1(false);
+              setOpen2(false);
+              setOpen3(false);
+              setOpen4(false);
               setMenuVisible(true);
-              console.log("1");
             } else {
               setMenuVisible(false);
-              console.log("2");
             }
           }}
         >

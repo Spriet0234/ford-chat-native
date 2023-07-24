@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import ChatInterface from "./components/ChatInterface";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Login from "./components/login";
 
 import Home from "./components/Home";
 
@@ -20,6 +21,11 @@ export default function App() {
         <Stack.Screen
           name="Chat-Interface"
           component={ChatInterface}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="login"
+          component={Login}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
