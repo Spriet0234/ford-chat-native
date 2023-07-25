@@ -50,14 +50,14 @@ export default function handleInfoFlow(
             <View style={styles.optionsContainer}>
             <ScrollView horizontal={true}>
               <TouchableOpacity key={"buy"} style={styles.optionButton} onPress={() =>{ }}>
-                  <Text>Buying a Ford</Text>
+                  <Text>Schedule a test drive</Text>
                 </TouchableOpacity>
                 <TouchableOpacity key={"exist"} style={styles.optionButton} onPress={() =>{ }}>
-                  <Text>I'm an existing owner</Text>
+                  <Text>Pricing estimation</Text>
                 </TouchableOpacity>
                 <TouchableOpacity key={"info"} style={styles.optionButton} onPress={() => {
                 }}>
-                  <Text>Info about Ford</Text>
+                  <Text>More information</Text>
                 </TouchableOpacity>
             </ScrollView>
             </View>
