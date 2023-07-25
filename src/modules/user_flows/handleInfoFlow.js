@@ -1,4 +1,5 @@
 import data from "../../jsons/data.json";
+import styles from "../"
 export default function handleInfoFlow(
     handleMoreInfo,
     tableForceUpdate,
