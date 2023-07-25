@@ -177,11 +177,12 @@ const ChatInterface = () => {
             </ScrollView>
       </View>
   );
+  //map functions -------------------------------------------------------->
   const selectHandler = selectHandlerFn(setQuery, setModel, setCalcButtons, setFind);
-  const locateDealerships = locateDealershipsFn(setDealers, setCalcButtons, setSelect, selected, setFind, changeSelected, zipCode, distance, setMessages, setZipMode);
+  const locateDealerships = locateDealershipsFn(setDealers, setCalcButtons, setSelect, selected, setFind, changeSelected, zipCode, distance, setMessages, setZipMode, setShowCalcButtons);
   const changeFind = changeFindFn(setFind, setSelect, setCalcButtons, selectHandler);
   const appendSelect = appendSelectFn(selected, model, changeSelected);
-  const calcButtonHandler = calcButtonHandlerFn(setQuery, setMessages, setCalcButtons, setShowCalcButtons);
+  const calcButtonHandler = calcButtonHandlerFn(setQuery, setMessages, setCalcButtons,setShowCalcButtons);
   //Car Info functions  -------------------------------------------------------------
   let compareTrimOptions =
       compareModel === "" || compareModel === "no model" ? [{ value: "no trim", label: "Select A Model First" }] : trims[compareModel].map((trim) => ({ value: trim, label: trim }));
@@ -192,30 +193,34 @@ const ChatInterface = () => {
   const handleCheckboxSelect = onCheckBoxSelect(selectedCars, setSelectedCars, carInfoData, setCarInfoData);
   const handleCompareButton = onCompare(setCarInfoMode);
   const handleTableBackButton = onTableBack(setCarInfoMode);
+
   useEffect(() => {
-    setTrimOptions(getTrimOptions(model));
-}, [model]);
+      setTrimOptions(getTrimOptions(model));
+  }, [model]);
+
   const dropDownOptions = [handleModelChange, handleTrimChange, modelOptions, trimOptions, handleCarInfoButton, handleCarInfoCompareButton, compareTrimOptions];
   const tableFunctions = [handleCheckboxSelect, handleCompareButton, handleTableBackButton];
+
   const handleUserInput = handleUserInputFn(
     setMessages,
-    changeChoice,
-    setMenuButtons,
-    buyACarButtons,
-    setCalcButtons,
-    model,
-    setModel,
-    calcButtonHandler,
-    setCalcStep,
-    trim,
-    setQuery,
-    blockQueries,
-    setResponse,
-    setShowCalcButtons,
-    setCalcHeadingText,
-    setInfoMode,
-    cat,
-    setCat
+        changeChoice,
+        setMenuButtons,
+        buyACarButtons,
+        setCalcButtons,
+        model,
+        setModel,
+        calcButtonHandler,
+        setCalcStep,
+        trim,
+        setQuery,
+        blockQueries,
+        setResponse,
+        setShowCalcButtons,
+        setCalcHeadingText,
+        setInfoMode,
+        cat,
+        setCat,
+        setOptionButtons
 );
 useEffect(() => {
   // Check if speech recognition is supported
@@ -254,77 +259,14 @@ const toggleRecording = () => {
     setMessages((m) => [...m, { msg: "", author: "Table" }]);
   };
   useEffect(() => {
-    handleUserFlow(
-        tableForceUpdate, 
-        setTableForceUpdate,
-        handleMoreInfo,
-        handleCarInfoButton,
-        fixTrimQueryQuotation,
-        query,
-        dealerList,
-        carInfoData,
-        setCarInfoData,
-        extractFiveDigitString,
-        findLocations,
-        handleUserInput,
-        blockQueries,
-        choice,
-        setQuery,
-        zipMode,
-        setZipCode,
-        messages,
-        setMessages,
-        setZipMode,
-        setDistance,
-        setCalcButtons,
-        calcButtonHandler,
-        zipCode,
-        distance,
-        findMode,
-        selectHandler,
-        setFind,
-        appendSelect,
-        setSelect,
-        questionnaireStep,
-        setQuestionnaireAnswers,
-        setQuestionnaireStep,
-        questionnaireAnswers,
-        setForceUpdate,
-        forceUpdate,
-        calcStep,
-        model,
-        setModel,
-        setCalcStep,
-        trim,
-        setTrim,
-        calcMode,
-        setCalcMode,
-        setLeaseStep,
-        setFinanceStep,
-        leaseStep,
-        financeStep,
-        changeChoice,
-        history,
-        setHistory,
-        infoMode,
-        setInfoMode,
-        vehicle,
-        setVehicle,
-        showCalcButtons,
-        setShowCalcButtons,
-        calcHeadingText,
-        setCalcHeadingText,
-        payment,
-        setPayment,
-        setMenuButtons,
-        locateDealershipsFn,
-        changeSelected,
-        setDealers,
-        selected,
-        cat,
-        setCat,
-        origButtons,
-        setOptionButtons
+    handleUserFlow(tableForceUpdate, setTableForceUpdate,handleMoreInfo,handleCarInfoButton,fixTrimQueryQuotation,query,dealerList,carInfoData,
+        setCarInfoData,extractFiveDigitString,findLocations,handleUserInput,blockQueries,choice,setQuery,zipMode,setZipCode,
+        messages,setMessages,setZipMode,setDistance,setCalcButtons,calcButtonHandler,zipCode,distance,findMode,selectHandler,
+        setFind,appendSelect,setSelect,questionnaireStep,setQuestionnaireAnswers,
+        setQuestionnaireStep,questionnaireAnswers,setForceUpdate,forceUpdate,calcStep,model,setModel,setCalcStep,trim,setTrim,calcMode,setCalcMode,setLeaseStep,setFinanceStep,
+        leaseStep,financeStep,changeChoice,history,setHistory,infoMode,setInfoMode,vehicle,
+        setVehicle,showCalcButtons,setShowCalcButtons,calcHeadingText,setCalcHeadingText, payment,setPayment,setMenuButtons,locateDealershipsFn,changeSelected,
+        setDealers,selected,cat,setCat,origButtons,setOptionButtons
     );
 }, [query, history, calcStep, calcMode, leaseStep, financeStep, choice, menuButtons, model, trim]);
 
@@ -350,7 +292,6 @@ const toggleRecording = () => {
       setMessage("");
       setCount(1);
     } else if (count === 2 || (optionMessage === "null" && count !== 0)) {
-      setOptions([]);
       setMessages((prevState) => [
         ...prevState,
         { author: "You", msg: message },
@@ -449,6 +390,10 @@ const toggleRecording = () => {
             ></ChatItem>
           )}
         />
+        {
+          showCalcButtons &&<View>
+            {calcButtons}</View>
+        }
         {menuButtons}
       </View>
       <View style={styles.inputContainer}>
