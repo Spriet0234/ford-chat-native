@@ -10,7 +10,7 @@ import {
   Image,
 } from "react-native";
 
-export default function Login() {
+export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,22 +23,10 @@ export default function Login() {
         source={require("../assets/x.png")}
       ></Image>
 
-      <Text
-        style={{
-          color: "#00095B",
-          fontWeight: 500,
-          fontSize: 20,
-          alignSelf: "center",
-          position: "absolute",
-          top: 35,
-        }}
-      >
-        Ford Credentials
-      </Text>
+      <Text style={styles.title}>Ford Credentials</Text>
       <View
         style={{
-          position: "absolute",
-          top: 75,
+          marginTop: 20,
           display: "flex",
           flexDirection: "row",
         }}
@@ -66,8 +54,7 @@ export default function Login() {
         style={{
           display: "flex",
           flexDirection: "row",
-          position: "absolute",
-          top: 115,
+          marginTop: 5,
         }}
       >
         <Image
@@ -84,12 +71,56 @@ export default function Login() {
 
         <TextInput
           style={styles.input}
-          onChangeText={setEmail}
+          onChangeText={setPassword}
           value={password}
           placeholder="Password"
         />
       </View>
-      <View style={{ position: "absolute", top: 170 }}>
+      <View style={{ marginTop: 15, marginBottom: 5 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#00095B",
+            paddingHorizontal: 20,
+            paddingVertical: 5,
+            borderRadius: 20,
+          }}
+        >
+          <Text style={{ color: "white" }}>Sign in</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity onPress={handlePress} style={{ marginTop: 10 }}>
+        <Text style={styles.linkText}>Forgot my password</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={handlePress}
+        style={{ marginTop: 5, marginBottom: 10 }}
+      >
+        <Text style={styles.linkText}>Create an account</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+export function Login2() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handlePress = () => {
+    console.log("pressed");
+  };
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Forgot password</Text>
+      <Text style={styles.text2}>Please enter your email or username.</Text>
+      <Text style={styles.text2}>
+        We will send you an email with a link to change your password
+      </Text>
+      <View style={{ marginTop: 15 }}></View>
+      <TextInput
+        style={styles.input}
+        onChangeText={setEmail}
+        value={email}
+        placeholder="Email"
+      />
+      <View style={{ marginTop: 15, marginBottom: 5 }}>
         <TouchableOpacity
           style={{
             backgroundColor: "#00095B",
@@ -103,15 +134,53 @@ export default function Login() {
       </View>
       <TouchableOpacity
         onPress={handlePress}
-        style={{ position: "absolute", top: 205 }}
+        style={{ marginTop: 10, marginBottom: 10 }}
       >
-        <Text style={styles.linkText}>Forgot my password</Text>
+        <Text style={styles.linkText}>Back to sign in</Text>
       </TouchableOpacity>
+    </View>
+  );
+}
+
+export function Login3() {
+  const [ver, setVer] = useState("");
+  const handlePress = () => {
+    console.log("pressed");
+  };
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>2-Step verification</Text>
+      <Text style={styles.text2}>
+        Please enter the 4-digit code sent to the phone number ending in
+        (***)-***-1234
+      </Text>
+
+      <View style={{ marginTop: 15 }}></View>
+      <TextInput
+        style={styles.input}
+        onChangeText={setVer}
+        value={ver}
+        placeholder="Verification code"
+      />
+
+      <View style={{ marginTop: 15, marginBottom: 5 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#00095B",
+            paddingHorizontal: 20,
+            paddingVertical: 5,
+            borderRadius: 20,
+            marginBottom: 10,
+          }}
+        >
+          <Text style={{ color: "white" }}>Verify</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity
         onPress={handlePress}
-        style={{ position: "absolute", top: 225 }}
+        style={{ marginTop: 0, marginBottom: 20 }}
       >
-        <Text style={styles.linkText}>Create an account</Text>
+        <Text style={styles.linkText}>Back to sign in</Text>
       </TouchableOpacity>
     </View>
   );
@@ -119,6 +188,17 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   container: {
+    shadow: {
+      backgroundColor: "#fff", // White for the contrast with the shadow
+      borderRadius: 10, // Rounded corners
+      padding: 20, // Inner padding
+      elevation: 10, // This adds a drop shadow on Android
+      shadowColor: "#000", // Shadow color
+      shadowOffset: { width: 0, height: 2 }, // The shadow will be on the bottom of the view
+      shadowOpacity: 0.25, // Opacity of shadow
+      shadowRadius: 3.84, // Blur radius
+    },
+    textAlign: "center",
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
@@ -126,8 +206,15 @@ const styles = StyleSheet.create({
     width: "90%",
     borderRadius: 30,
     marginTop: 240,
-    height: "33%",
+    height: "auto",
     position: "relative",
+  },
+  text2: {
+    color: "#00095B",
+    fontWeight: 400,
+    fontSize: 17,
+    alignSelf: "center",
+    marginTop: 2,
   },
   input: {
     height: 30,
@@ -145,5 +232,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  title: {
+    color: "#00095B",
+    fontWeight: 500,
+    fontSize: 21,
+    alignSelf: "center",
+    marginTop: 15,
+    marginBottom: 15,
+  },
+
+  linkText: {
+    textDecorationLine: "underline",
+    color: "#00095B",
+    fontWeight: 400,
   },
 });
