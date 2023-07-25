@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Dealer" headerMode="none">
+      <Stack.Navigator initialRouteName="login" headerMode="none">
         <Stack.Screen
           name="Home"
           component={Home}

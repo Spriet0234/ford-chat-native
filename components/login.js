@@ -188,6 +188,7 @@ export function Login3() {
 
 const styles = StyleSheet.create({
   container: {
+    padding: 15,
     shadow: {
       backgroundColor: "#fff", // White for the contrast with the shadow
       borderRadius: 10, // Rounded corners
