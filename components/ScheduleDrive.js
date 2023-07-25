@@ -1,4 +1,6 @@
 import { useState } from "react";
+import data from "../src/images/image_link.json";
+import dealerships from "../src/jsons/trimToDealer.json"
 import {
   View,
   Text,
@@ -34,7 +36,7 @@ export function ScheduleDrive({calcButtons}) {
   );
 }
 //model with back button
-export function ScheduleDrive2({calcButtons, mode}) {
+export function ScheduleDrive2({calcButtons, mode, back}) {
   return (
     <View style={styles.container}>
       {mode === 0 ? <Text style={styles.title}>Choose a specific model</Text>
@@ -65,6 +67,7 @@ export function ScheduleDrive2({calcButtons, mode}) {
           marginLeft: 20,
           marginBottom: 20,
         }}
+        onPress = {back}
       >
         <Image
           source={require("../assets/arrow.png")}
@@ -82,7 +85,7 @@ export function ScheduleDrive2({calcButtons, mode}) {
   );
 }
 //specific car display
-export function ScheduleDrive3() {
+export function ScheduleDrive3({info, handler}) {
   return (
     <View style={styles.container2}>
       <View
@@ -97,7 +100,7 @@ export function ScheduleDrive3() {
       >
         <View style={{ marginLeft: 30, marginBottom: 20 }}>
           <View>
-            <Text style={styles.title2}>2023 Bronco Big Bend model</Text>
+            <Text style={styles.title2}>{info.model}&#x24C7;{" "+info.trim + " model"}</Text>
             <Text
               style={{
                 color: "#00095B",
@@ -122,22 +125,25 @@ export function ScheduleDrive3() {
                 marginLeft: 10,
               }}
             >
-              Available at Wayne Ford, Fette Ford,
+              Available at {
+                " " +
+                dealerships[info.model][info.trim][0] +
+                ", " +
+                dealerships[info.model][info.trim][1]
+              }
             </Text>
           </View>
           <View style={{ marginLeft: 10 }}>
-            <Text style={styles.title2}>Your Vehicle</Text>
-            <Text style={styles.text22}>Engine</Text>
-            <Text style={styles.text22}>Drivetrain</Text>
-            <Text style={styles.text22}>Tramsmission</Text>
-            <Text style={styles.text22}>Exterior</Text>
-            <Text style={styles.text22}>Interior</Text>
-            <Text style={styles.text22}>Package</Text>
+            <Text style={styles.title2}>Your Vehicle </Text>
+            <Text style={styles.text22}>Engine {" " + info["engine_aspiration"]}</Text>
+            <Text style={styles.text22}>Drivetrain {" " + info["drivetrain"]}</Text>
+            <Text style={styles.text22}>Tramsmission {" " + info["transmission"]}</Text>
+            <Text style={styles.text22}>Body Style {" " + info["body_style"]}</Text>
           </View>
         </View>
         <View>
           <Image
-            source={require("../assets/mustang.png")}
+            source={data[info.model][info.trim]}
             resizeMode="contain" // Add this line
             style={{
               alignSelf: "flex-end",
@@ -291,7 +297,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
-    marginTop: 240,
     height: "auto",
     position: "relative",
   },
@@ -303,7 +308,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
-    marginTop: 240,
     height: "auto",
     position: "relative",
     paddingleft: 140,

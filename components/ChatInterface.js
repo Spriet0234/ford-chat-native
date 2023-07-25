@@ -11,7 +11,7 @@ import { handleUserInputFn, handleUserFlow } from "../src/modules/userFlowFuncti
 import trims from "../src/jsons/trims.json";
 import data from "../data/zipLocations.json";
 import carData from "../data/car_data.json";
-import Login from "./login";
+import {Login} from "./login";
 import {ScheduleDrive, ScheduleDrive2} from "./ScheduleDrive.js"
 const fixTrimQueryQuotation = (model, query) => {
   if (model !== "Transit Cargo Van" && model !== "E-Transit Cargo Van") {
@@ -219,7 +219,31 @@ const toggleDarkMode = () => {
   const handleUserInput = handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACarButtons,setCalcButtons,
         model,setModel,calcButtonHandler,setCalcStep,trim,setQuery,blockQueries,setResponse,
         setShowCalcButtons,setCalcHeadingText,setInfoMode,cat,setCat,setOptionButtons);
-useEffect(() => {
+  const goBack = () => {
+    if (infoMode === 0){
+      setShowCalcButtons(false)
+      setMenuButtons(buyingFordButtons)
+    }
+    if (infoMode === 1) {
+        handleUserInput("I");
+        setInfoMode(0);
+    } else {
+        setQuery(cat);
+        setInfoMode(infoMode - 1);
+        handleUserFlow(origButtons,tableForceUpdate, setTableForceUpdate,handleMoreInfo,handleCarInfoButton,
+          fixTrimQueryQuotation,query,dealerList,carInfoData,setCarInfoData,extractFiveDigitString,findLocations,
+          handleUserInput,blockQueries,choice,setQuery,zipMode,setZipCode,messages,setMessages,setZipMode,setDistance,setCalcButtons,calcButtonHandler,
+          zipCode,distance,findMode,selectHandler,setFind,appendSelect,setSelect,questionnaireStep,
+          setQuestionnaireAnswers,setQuestionnaireStep,questionnaireAnswers,
+          setForceUpdate,forceUpdate,calcStep,model,setModel,setCalcStep,trim,
+          setTrim,calcMode,setCalcMode,setLeaseStep,
+          setFinanceStep,leaseStep,financeStep,changeChoice,history,setHistory,infoMode,setInfoMode,vehicle,
+          setVehicle,showCalcButtons,setShowCalcButtons,calcHeadingText,setCalcHeadingText,payment,
+          setPayment,setMenuButtons,locateDealershipsFn,changeSelected,setDealers,selected,cat,setCat
+        );
+    }
+}
+        useEffect(() => {
   // Check if speech recognition is supported
   if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
       const recognitionInstance = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
@@ -371,40 +395,40 @@ const toggleRecording = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.chatContainer}>
-        <FlatList
-          data={messages}
-          style={styles.chatList}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <ChatItem author = {item.author} msg = {item.msg}
-            darkMode={darkMode}
-            textSize={textSize}
-            zip = {message.zip}
-            locs={message.locs}
-            dropDownOptions={dropDownOptions}
-            carInfoData={carInfoData[""+(index)]?carInfoData[""+(index)]:[[],[]]}
-            carInfoMode={carInfoMode}
-            setMessages={setMessages}
-            setMenuButtons={setMenuButtons}
-            handleUserInput={handleUserInput}
-            carSpecInfo = {message.carInfo}
-            selectedCar = {selectedCar}
-            setSelectedCar = {setSelectedCar}
-            tableFunctions={tableFunctions}
-            messageIndex={index}
-            selectedCars={selectedCars}
-            setOptionButtons={setOptionButtons}
-            ></ChatItem>
-          )}
-        />
-        {
+      <ScrollView style={styles.chatList} contentContainerStyle={{ paddingBottom: "50%" }}>
+  {messages.map((item, index) => (
+    <ChatItem 
+      key={index} 
+      author={item.author} 
+      msg={item.msg}
+      darkMode={darkMode}
+      textSize={textSize}
+      zip={item.zip}
+      locs={item.locs}
+      dropDownOptions={dropDownOptions}
+      carInfoData={carInfoData[""+(index)]?carInfoData[""+(index)]:[[],[]]}
+      carInfoMode={carInfoMode}
+      setMessages={setMessages}
+      setMenuButtons={setMenuButtons}
+      handleUserInput={handleUserInput}
+      carSpecInfo={item.carInfo}
+      selectedCar={selectedCar}
+      setSelectedCar={setSelectedCar}
+      tableFunctions={tableFunctions}
+      messageIndex={index}
+      selectedCars={selectedCars}
+      setOptionButtons={setOptionButtons}
+    />
+  ))}
+  {
           
           showCalcButtons && 
           (
-            infoMode === 0 ? <ScheduleDrive calcButtons = {calcButtons}></ScheduleDrive>
-            : <ScheduleDrive2 calcButtons = {calcButtons} mode = {infoMode-1}></ScheduleDrive2>
+            infoMode === 0 ? <ScheduleDrive calcButtons = {calcButtons} back = {goBack}></ScheduleDrive>
+            : <ScheduleDrive2 calcButtons = {calcButtons} mode = {infoMode-1} back = {goBack}></ScheduleDrive2>
           )
         }
+</ScrollView>
         {optionButtons}
         {menuButtons}
       </View>
