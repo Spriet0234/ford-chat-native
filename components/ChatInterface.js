@@ -12,7 +12,7 @@ import trims from "../src/jsons/trims.json";
 import data from "../data/zipLocations.json";
 import carData from "../data/car_data.json";
 import Login from "./login";
-import {ScheduleDrive} from "./ScheduleDrive.js"
+import {ScheduleDrive, ScheduleDrive2} from "./ScheduleDrive.js"
 const fixTrimQueryQuotation = (model, query) => {
   if (model !== "Transit Cargo Van" && model !== "E-Transit Cargo Van") {
       return query;
@@ -397,31 +397,17 @@ const toggleRecording = () => {
             ></ChatItem>
           )}
         />
+        {
+          
+          showCalcButtons && 
+          (
+            infoMode === 0 ? <ScheduleDrive calcButtons = {calcButtons}></ScheduleDrive>
+            : <ScheduleDrive2 calcButtons = {calcButtons} mode = {infoMode-1}></ScheduleDrive2>
+          )
+        }
         {optionButtons}
         {menuButtons}
       </View>
-      {
-          
-          showCalcButtons && <ScheduleDrive></ScheduleDrive>
-      //     <View style = {styles.container}>
-      //       <Text style={styles.title}>Choose vehicle category</Text>
-      // <Text style={styles.text2}>
-      //   Select from the options to specify which cars you are looking for.
-      // </Text>
-      // <ScrollView
-      //   horizontal={true}
-      //   style={{
-      //     display: "flex",
-      //     flexDirection: "row",
-      //     marginBottom: 30,
-      //     marginTop: 20,
-      //     width: "90%",
-      //   }}
-      // >
-      //   {calcButtons}
-      // </ScrollView>
-      //       </View>
-        }
       <View style={styles.inputContainer}>
         <View style={styles.inputWithButton}>
           <TextInput

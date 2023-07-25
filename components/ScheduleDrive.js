@@ -10,7 +10,8 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-export function ScheduleDrive() {
+//choose vehicle category
+export function ScheduleDrive({calcButtons}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose vehicle category</Text>
@@ -27,18 +28,18 @@ export function ScheduleDrive() {
           width: "90%",
         }}
       >
-        <Conts inp={"SUVs and Cars"} />
-        <Conts inp={"Trucks and Vans"} />
-        <Conts inp={"Electrified"} />
-        <Conts inp={"Performance Vehicles"} />
+        {calcButtons}
       </ScrollView>
     </View>
   );
 }
-export function ScheduleDrive2() {
+//model with back button
+export function ScheduleDrive2({calcButtons, mode}) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Choose a specific model</Text>
+      {mode === 0 ? <Text style={styles.title}>Choose a specific model</Text>
+      : <Text style={styles.title}>Choose a specific trim</Text>}
+      
       <Text style={styles.text2}>
         Select from the options to specify which cars you are looking for.{" "}
       </Text>
@@ -52,10 +53,7 @@ export function ScheduleDrive2() {
           width: "90%",
         }}
       >
-        <Conts2 />
-        <Conts2 />
-        <Conts2 />
-        <Conts2 />
+        {calcButtons}
       </ScrollView>
       <TouchableOpacity
         style={{
@@ -83,7 +81,7 @@ export function ScheduleDrive2() {
     </View>
   );
 }
-
+//specific car display
 export function ScheduleDrive3() {
   return (
     <View style={styles.container2}>
@@ -191,6 +189,7 @@ export function ScheduleDrive3() {
     </View>
   );
 }
+//Selecting trim
 export function ScheduleDrive4() {
   return (
     <View style={styles.container}>
@@ -274,11 +273,13 @@ export function Conts({ inp }) {
 }
 export function Conts2() {
   return (
+    <View>
     <Image
       source={require("../assets/mustang.png")}
       resizeMode="contain" // Add this line
       style={{ width: 180, height: 180, alignSelf: "center", marginRight: 10 }}
     ></Image>
+    </View>
   );
 }
 const styles = StyleSheet.create({

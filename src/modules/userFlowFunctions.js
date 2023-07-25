@@ -9,6 +9,7 @@ import {View,TextInput,Button,Text,FlatList,StyleSheet,KeyboardAvoidingView,
     Platform,TouchableOpacity,Image,ScrollView} from "react-native";
 
 
+
 export function handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACarButtons,setCalcButtons,model,setModel,calcButtonHandler,setCalcStep,trim,setQuery,blockQueries,setResponse,setShowCalcButtons,setCalcHeadingText,setInfoMode,cat,setCat, setOptionButtons) {
     return (option) => {
         // Outputs a response to based on input user selects
@@ -34,12 +35,12 @@ export function handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACa
                         <Conts
                             key={vehicle}
                             value={vehicle}
-                            onClick={() => {
+                            onPress={() => {
                                 setQuery(vehicle);
                                 setInfoMode(1);
                                 setCat(vehicle);
                             }}
-                            input = {vehicle}/>
+                            inp = {vehicle}/>
                     ))
                 );
                 changeChoice("I");
@@ -148,20 +149,18 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
                 setCalcHeadingText("Choose specific model");
                 setCalcButtons(
                     Object.keys(vehicles[cat]).map((model) => (
-                        <TouchableOpacity
-                            className="model-button"
+                        <Conts2
                             key={model}
                             value={model}
-                            onClick={() => {
+                            onPress = {() => {
                                 setQuery(model);
                                 setInfoMode(2);
                                 setModel(model);
                             }}
-                        >
-                            <img style={{ width: "160px", height: "auto" }} src={images["Default"][model]} />
-                            <br />
-                            {model}
-                        </TouchableOpacity>
+                            inp = {model}
+                            imag = {images["Default"][model]}
+                            >
+                        </Conts2>
                     )));
                 setVehicle(query);
                 blockQueries.current = false;
@@ -170,21 +169,21 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
                 setCalcHeadingText(query + ": Choose specific trim");
                 setCalcButtons(
                     vehicles[vehicle][model].map((trim) => (
-                        <TouchableOpacity
-                            className="model-button"
+                        <Conts2
                             key={trim}
                             value={trim}
-                            onClick={() => {
+                            onPress = {() => {
                                 handleInfoFlow(handleMoreInfo,tableForceUpdate,setTableForceUpdate,forceUpdate,setForceUpdate,handleCarInfoButton,model,trim,setMessages,
                                     setModel,setQuery,setInfoMode,setCalcButtons,setMenuButtons,handleUserInput,setShowCalcButtons,setCarInfoData,
                                     infoMode,selected,changeSelected,setDealers,locateDealershipsFn,setSelect,setFind,query,setZipMode,setOptionButtons
                                 );
                                 setTrim(trim);
                             }}
-                        >
-                        <img style={{ width: "160px", height: "auto" }} src={images[model][trim]}/>
-                          <br />{trim}
-                      </TouchableOpacity>)));
+                            inp = {trim}
+                            imag = {images[model][trim]}
+                            >
+                        </Conts2>)
+                    ));
                       blockQueries.current = false;
                       break;
             }
@@ -344,9 +343,9 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
         }
     }
   }
-  export function Conts({ inp }) {
+  export function Conts({ inp, onPress }) {
     return (
-      <View
+      <TouchableOpacity
         style={{
           height: 110,
           width: 180,
@@ -357,9 +356,21 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
           alignContent: "center",
           display: "flex",
         }}
+        onPress = {onPress}
       >
         <Text style={{ fontSize: 19 }}>{inp}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
-  
+  export function Conts2({inp,imag, onPress}) {
+    return (
+        <TouchableOpacity onPress = {onPress}>
+      <Image
+        source={imag}
+        resizeMode="contain" // Add this line
+        style={{ width: 120, height: 120, alignSelf: "center", marginRight: 10 }}
+      ></Image>
+      <Text>{inp}</Text>
+      </TouchableOpacity>
+    );
+  }
