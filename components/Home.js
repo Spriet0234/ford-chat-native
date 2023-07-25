@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-
+import Login from "./login";
 export default function HomePage({ navigation }) {
   const [name, setName] = useState("");
 

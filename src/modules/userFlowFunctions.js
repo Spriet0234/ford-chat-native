@@ -31,8 +31,7 @@ export function handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACa
                 setShowCalcButtons(true);
                 setCalcButtons(
                     Object.keys(vehicles).map((vehicle) => (
-                        <TouchableOpacity
-                            className="model-button"
+                        <Conts
                             key={vehicle}
                             value={vehicle}
                             onClick={() => {
@@ -40,9 +39,7 @@ export function handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACa
                                 setInfoMode(1);
                                 setCat(vehicle);
                             }}
-                        >
-                            {vehicle}
-                        </TouchableOpacity>
+                            input = {vehicle}/>
                     ))
                 );
                 changeChoice("I");
@@ -347,3 +344,22 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
         }
     }
   }
+  export function Conts({ inp }) {
+    return (
+      <View
+        style={{
+          height: 110,
+          width: 180,
+          backgroundColor: "white",
+          borderRadius: 10,
+          marginRight: 15,
+          justifyContent: "center",
+          alignContent: "center",
+          display: "flex",
+        }}
+      >
+        <Text style={{ fontSize: 19 }}>{inp}</Text>
+      </View>
+    );
+  }
+  

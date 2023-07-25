@@ -9,6 +9,10 @@ import { modelOptions, getTrimOptions } from "../src/modules/tableFunctions";
 import { handleCarInfo, handleCarComparison, onModelChange, onTrimChange, onCheckBoxSelect, onCompare, onTableBack} from "../src/modules/selectCarFunctions";
 import { handleUserInputFn, handleUserFlow } from "../src/modules/userFlowFunctions";
 import trims from "../src/jsons/trims.json";
+import data from "../data/zipLocations.json";
+import carData from "../data/car_data.json";
+import Login from "./login";
+import {ScheduleDrive} from "./ScheduleDrive.js"
 const fixTrimQueryQuotation = (model, query) => {
   if (model !== "Transit Cargo Van" && model !== "E-Transit Cargo Van") {
       return query;
@@ -25,6 +29,7 @@ const fixTrimQueryQuotation = (model, query) => {
   }
   return query;
 };
+
 const ChatInterface = () => {
   const [menuButtons, setMenuButtons] = useState([]);
   const [message, setMessage] = useState("");
@@ -352,6 +357,10 @@ const toggleRecording = () => {
           style={{ position: "absolute", right: 30 }}
           onPress={() => {
             if (!menuVisible) {
+              setOpen1(false);
+              setOpen2(false);
+              setOpen3(false);
+              setOpen4(false);
               setMenuVisible(true);
             } else {
               setMenuVisible(false);
@@ -389,12 +398,30 @@ const toggleRecording = () => {
           )}
         />
         {optionButtons}
-        {
-          showCalcButtons &&<View>
-            {calcButtons}</View>
-        }
         {menuButtons}
       </View>
+      {
+          
+          showCalcButtons && <ScheduleDrive></ScheduleDrive>
+      //     <View style = {styles.container}>
+      //       <Text style={styles.title}>Choose vehicle category</Text>
+      // <Text style={styles.text2}>
+      //   Select from the options to specify which cars you are looking for.
+      // </Text>
+      // <ScrollView
+      //   horizontal={true}
+      //   style={{
+      //     display: "flex",
+      //     flexDirection: "row",
+      //     marginBottom: 30,
+      //     marginTop: 20,
+      //     width: "90%",
+      //   }}
+      // >
+      //   {calcButtons}
+      // </ScrollView>
+      //       </View>
+        }
       <View style={styles.inputContainer}>
         <View style={styles.inputWithButton}>
           <TextInput
