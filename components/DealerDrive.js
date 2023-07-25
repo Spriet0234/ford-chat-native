@@ -12,13 +12,59 @@ import {
 } from "react-native";
 
 export function DealerDrive() {
+  const handlePress = () => Linking.openURL("https://www.example.com");
+
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.title}>Wayne Ford</Text>
       </View>
+      <Image
+        source={require("../assets/deal.png")}
+        resizeMode="contain" // Add this line
+        style={{
+          alignSelf: "flex-end",
+
+          width: 220,
+          height: 180,
+          alignSelf: "flex-start",
+          marginRight: 20,
+          marginTop: 0,
+        }}
+      ></Image>
       <View>
-        <View style={{ flexDirection: "row" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignContent: "center",
+          }}
+        >
+          <Image
+            source={require("../assets/maps.png")}
+            resizeMode="contain" // Add this line
+            style={{
+              width: 30,
+              alignSelf: "center",
+              height: 22,
+              marginRight: 20,
+              marginTop: -7,
+            }}
+          ></Image>
+          <TouchableOpacity
+            onPress={handlePress}
+            style={{ alignSelf: "center" }}
+          >
+            <Text style={styles.linkText}>Forgot my password</Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
           <Image
             source={require("../assets/1.png")}
             resizeMode="contain" // Add this line
@@ -27,11 +73,30 @@ export function DealerDrive() {
               alignSelf: "center",
               height: 20,
               marginRight: 20,
+              marginTop: -7,
             }}
           ></Image>
-          <Text>abc</Text>
+
+          <Text
+            style={{
+              color: "#00095B",
+              fontWeight: 400,
+              fontSize: 17,
+              marginBottom: 10,
+            }}
+          >
+            444 Rte 46, Wayne, NJ 07470
+          </Text>
         </View>
-        <View style={{ flexDirection: "row" }}>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "start",
+            alignContent: "center",
+          }}
+        >
+          {" "}
           <Image
             source={require("../assets/2.png")}
             resizeMode="contain" // Add this line
@@ -40,11 +105,28 @@ export function DealerDrive() {
               alignSelf: "center",
               height: 20,
               marginRight: 20,
+              marginTop: -5,
             }}
           ></Image>
-          <Text>abc</Text>
+          <Text
+            style={{
+              color: "#00095B",
+              fontWeight: 400,
+              fontSize: 17,
+              marginBottom: 10,
+            }}
+          >
+            (888)349-6957
+          </Text>
         </View>
-        <View style={{ flexDirection: "row" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "start",
+            alignContent: "center",
+          }}
+        >
+          {" "}
           <Image
             source={require("../assets/3.png")}
             resizeMode="contain" // Add this line
@@ -53,9 +135,19 @@ export function DealerDrive() {
               alignSelf: "center",
               height: 20,
               marginRight: 20,
+              marginTop: -5,
             }}
           ></Image>
-          <Text>abc</Text>
+          <Text
+            style={{
+              color: "#00095B",
+              fontWeight: 400,
+              fontSize: 17,
+              marginBottom: 10,
+            }}
+          >
+            waynefordcars.com
+          </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Image
@@ -66,11 +158,32 @@ export function DealerDrive() {
               alignSelf: "center",
               height: 20,
               marginRight: 20,
+              marginTop: -5,
             }}
           ></Image>
-          <Text>abc</Text>
+          <Text
+            style={{
+              color: "#00095B",
+              fontWeight: 400,
+              fontSize: 17,
+              marginBottom: 10,
+            }}
+          >
+            Open-closes at 8pm
+          </Text>
         </View>
       </View>
+      <TouchableOpacity style={{ flexDirection: "row", marginTop: 15 }}>
+        <Image
+          source={require("../assets/arrow.png")}
+          resizeMode="contain"
+          style={{
+            width: 30,
+            height: 20,
+          }}
+        />
+        <Text> Back</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -108,7 +221,7 @@ const styles = StyleSheet.create({
     fontSize: 21,
     alignSelf: "center",
     marginTop: 5,
-    marginBottom: 5,
+    marginBottom: 0,
   },
   title2: {
     color: "#00095B",
@@ -133,5 +246,11 @@ const styles = StyleSheet.create({
     marginTop: -4,
     marginBottom: 0,
     padding: 0,
+  },
+  linkText: {
+    textDecorationLine: "underline",
+    color: "#00095B",
+    fontWeight: 400,
+    fontSize: 17,
   },
 });
