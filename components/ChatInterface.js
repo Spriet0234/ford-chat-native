@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
 import styles from '../styles/ChatStyle.js';
+import React, { useState, useRef, useEffect } from "react";
 import ChatItem from './ChatItem.js'
 import {View,TextInput,Button,Text,FlatList,StyleSheet,KeyboardAvoidingView,
   Platform,TouchableOpacity,Image,ScrollView} from "react-native";
@@ -9,9 +9,7 @@ import { modelOptions, getTrimOptions } from "../src/modules/tableFunctions";
 import { handleCarInfo, handleCarComparison, onModelChange, onTrimChange, onCheckBoxSelect, onCompare, onTableBack} from "../src/modules/selectCarFunctions";
 import { handleUserInputFn, handleUserFlow } from "../src/modules/userFlowFunctions";
 import trims from "../src/jsons/trims.json";
-
 const fixTrimQueryQuotation = (model, query) => {
-  console.log("model: " + model, "original query: " + query);
   if (model !== "Transit Cargo Van" && model !== "E-Transit Cargo Van") {
       return query;
   }
@@ -42,6 +40,13 @@ const ChatInterface = () => {
   const [history, setHistory] = useState([]);
   const [response, setResponse] = useState("");
   const [recording, setRecording] = useState(false);
+  const toggleTextSize = () => {
+    setTextSize((prevSize) => (prevSize === "small" ? "medium" : prevSize === "medium" ? "large" : "small"));
+};
+
+const toggleDarkMode = () => {
+    setDarkMode((prevMode) => !prevMode);
+};
   // ACCESSIBILITY
   const [textSize, setTextSize] = useState("small");
   const [darkMode, setDarkMode] = useState(false);
@@ -106,7 +111,7 @@ const ChatInterface = () => {
                 </TouchableOpacity>
                 <TouchableOpacity key={"exist"} style={styles.optionButton} onPress={() => {
                 setMessages(m=>{return [...m, {msg: "I'm an Existing Owner", author: "You"}]})
-                // setMessages(m=>{return [...m, {msg: "", author: "Login"}]})
+                setMessages(m=>{return [...m, {msg: "", author: "Login"}]})
                 }}>
                   <Text>I'm an existing owner</Text>
                 </TouchableOpacity>
@@ -126,6 +131,11 @@ const ChatInterface = () => {
   const buyingFordButtons = (
     <View style={styles.optionsContainer}>
             <ScrollView horizontal={true}>
+            <TouchableOpacity key={"back"} style={styles.optionButton} onPress={() => {
+                  setMenuButtons([origButtons])
+                }}>
+                  <Text>Back</Text>
+                </TouchableOpacity>
                 <TouchableOpacity key={"I"} style={styles.optionButton} onPress={() => {
                   handleUserInput('I');
                   setMenuButtons([]);
@@ -133,7 +143,7 @@ const ChatInterface = () => {
                   <Text>Info about a specific car</Text>
                 </TouchableOpacity>
                 <TouchableOpacity key={"A"} style={styles.optionButton} onPress={() => {
-                  handleUserInput('I');
+                  handleUserInput('A');
                   setMenuButtons([]);
                 }}>
                   <Text>Car recommendation</Text>
@@ -201,27 +211,9 @@ const ChatInterface = () => {
   const dropDownOptions = [handleModelChange, handleTrimChange, modelOptions, trimOptions, handleCarInfoButton, handleCarInfoCompareButton, compareTrimOptions];
   const tableFunctions = [handleCheckboxSelect, handleCompareButton, handleTableBackButton];
 
-  const handleUserInput = handleUserInputFn(
-    setMessages,
-        changeChoice,
-        setMenuButtons,
-        buyACarButtons,
-        setCalcButtons,
-        model,
-        setModel,
-        calcButtonHandler,
-        setCalcStep,
-        trim,
-        setQuery,
-        blockQueries,
-        setResponse,
-        setShowCalcButtons,
-        setCalcHeadingText,
-        setInfoMode,
-        cat,
-        setCat,
-        setOptionButtons
-);
+  const handleUserInput = handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACarButtons,setCalcButtons,
+        model,setModel,calcButtonHandler,setCalcStep,trim,setQuery,blockQueries,setResponse,
+        setShowCalcButtons,setCalcHeadingText,setInfoMode,cat,setCat,setOptionButtons);
 useEffect(() => {
   // Check if speech recognition is supported
   if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
@@ -259,7 +251,7 @@ const toggleRecording = () => {
     setMessages((m) => [...m, { msg: "", author: "Table" }]);
   };
   useEffect(() => {
-    handleUserFlow(tableForceUpdate, setTableForceUpdate,handleMoreInfo,handleCarInfoButton,fixTrimQueryQuotation,query,dealerList,carInfoData,
+    handleUserFlow(origButtons,tableForceUpdate, setTableForceUpdate,handleMoreInfo,handleCarInfoButton,fixTrimQueryQuotation,query,dealerList,carInfoData,
         setCarInfoData,extractFiveDigitString,findLocations,handleUserInput,blockQueries,choice,setQuery,zipMode,setZipCode,
         messages,setMessages,setZipMode,setDistance,setCalcButtons,calcButtonHandler,zipCode,distance,findMode,selectHandler,
         setFind,appendSelect,setSelect,questionnaireStep,setQuestionnaireAnswers,
@@ -291,42 +283,47 @@ const toggleRecording = () => {
       }, 500);
       setMessage("");
       setCount(1);
-    } else if (count === 2 || (optionMessage === "null" && count !== 0)) {
-      setMessages((prevState) => [
+    }
+    else{
+        setMessages((prevState) => [
         ...prevState,
         { author: "You", msg: message },
       ]);
-
-      // Send a POST request to your API with the user's message
-      fetch("http://fordchat.franklinyin.com/quer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ quer: message, debug: true }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Add the bot's response to the messages list
-          setMessages((prevState) => [
-            ...prevState,
-            { author: "Ford Chat", msg: data.response },
-          ]);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-
-      // Clear the message input
-      setMessage("");
-    } else if (count === 1) {
-      setMessages((prevState) => [
-        ...prevState,
-        { author: "You", msg: optionMessage },
-      ]);
-      setSelected(optionMessage);
-      //timout
+      setQuery(message);
     }
+    // } else if (count === 2 || (optionMessage === "null" && count !== 0)) {
+    
+
+    //   // Send a POST request to your API with the user's message
+    //   fetch("http://fordchat.franklinyin.com/quer", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ quer: message, debug: true }),
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       // Add the bot's response to the messages list
+    //       setMessages((prevState) => [
+    //         ...prevState,
+    //         { author: "Ford Chat", msg: data.response },
+    //       ]);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error:", error);
+    //     });
+
+    //   // Clear the message input
+    //   setMessage("");
+    //  else if (count === 1) {
+    //   setMessages((prevState) => [
+    //     ...prevState,
+    //     { author: "You", msg: optionMessage },
+    //   ]);
+    //   setSelected(optionMessage);
+    //   //timout
+    // }
   };
 
   return (
@@ -387,9 +384,11 @@ const toggleRecording = () => {
             tableFunctions={tableFunctions}
             messageIndex={index}
             selectedCars={selectedCars}
+            setOptionButtons={setOptionButtons}
             ></ChatItem>
           )}
         />
+        {optionButtons}
         {
           showCalcButtons &&<View>
             {calcButtons}</View>

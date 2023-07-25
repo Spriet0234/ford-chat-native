@@ -59,7 +59,7 @@ export function handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACa
                         zip: {},
                     },
                 ]);
-                setMenuButtons(buyACarButtons);
+                setMenuButtons([buyACarButtons]);
                 break;
             case "B":
                 setMessages((m) => [...m, { msg: "Find a dealership", author: "You" }]);
@@ -238,10 +238,9 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
                     setCalcButtons(
                         Object.keys(trims).map((model) => (
                             <TouchableOpacity className="model-button" key={model} value={model} onClick={selectHandler}>
-                                <img style={{ width: "160px", height: "auto" }} src={images["Default"][model]} />
+                                {/* <img style={{ width: "160px", height: "auto" }} src={images["Default"][model]} /> */}
                                 <br />
                                 {model}
-                                <BiRegistered />
                             </TouchableOpacity>
                         )));
                     setFind(1);
