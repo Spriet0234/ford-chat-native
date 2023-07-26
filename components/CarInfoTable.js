@@ -5,6 +5,8 @@ import Popup from "./Popup";
 import { useState } from 'react';
 import { Button, Text } from 'react-native-paper';
 
+import images from '../src/images/image_link.json'
+import { Image } from 'react-native';
 const tables={}
 const tableHead=["Make", "Model", "MSRP"]
 let onPresses=[]
@@ -23,6 +25,7 @@ export default function CarInfoTable({data}){
   const showDialog=(dt)=>{
     setPopupTitle("Info about this Ford "+dt.model)
     setPopupContent(<View>
+        <Image source={`${images[dt.model][dt.trim]}`} style={{ alignSelf: "center", width: '300px', height: '200px' }}></Image>
         <p>Trim: {dt.trim} <br/>
         MSRP: {dt.msrp} <br/>
         Body Size: {dt.body_size} <br/>

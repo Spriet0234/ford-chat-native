@@ -45,7 +45,7 @@ export default function ChatItem({msg, author, line, darkMode, textSize, zip, lo
         "torque": "190 ft-lbs. @ 3000 rpm",
         "towing_capacity": "2000 lbs",
         "transmission": "automatic",
-        "trim": "Base",
+        "trim": "Limited",
         "used_new_price": 28845,
         "vehicle_length": "180.1 in.",
         "year": 2023,
