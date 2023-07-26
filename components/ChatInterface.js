@@ -4,7 +4,7 @@ import ChatItem from './ChatItem.js'
 import {View,TextInput,Button,Text,FlatList,StyleSheet,KeyboardAvoidingView,
   Platform,TouchableOpacity,Image,ScrollView} from "react-native";
 import Menu from './Menu.js'
-import { extractFiveDigitString, findLocations, selectHandlerFn, locateDealershipsFn, calcButtonHandlerFn, appendSelectFn, changeFindFn } from "../src/modules/mapFunctions";
+import { extractFiveDigitString, findLocations, selectHandlerFn, locateDealershipsFn, locateDealershipsRad, calcButtonHandlerFn, appendSelectFn, changeFindFn } from "../src/modules/mapFunctions";
 import { modelOptions, getTrimOptions } from "../src/modules/tableFunctions";
 import { handleCarInfo, handleCarComparison, onModelChange, onTrimChange, onCheckBoxSelect, onCompare, onTableBack} from "../src/modules/selectCarFunctions";
 import { handleUserInputFn, handleUserFlow } from "../src/modules/userFlowFunctions";
@@ -239,7 +239,7 @@ const toggleDarkMode = () => {
           setTrim,calcMode,setCalcMode,setLeaseStep,
           setFinanceStep,leaseStep,financeStep,changeChoice,history,setHistory,infoMode,setInfoMode,vehicle,
           setVehicle,showCalcButtons,setShowCalcButtons,calcHeadingText,setCalcHeadingText,payment,
-          setPayment,setMenuButtons,locateDealershipsFn,changeSelected,setDealers,selected,cat,setCat
+          setPayment,setMenuButtons,locateDealershipsFn,changeSelected,setDealers,selected,cat,setCat, setOptionButtons,locateDealershipsRad
         );
     }
 }
@@ -280,14 +280,16 @@ const toggleRecording = () => {
     setMessages((m) => [...m, { msg: "", author: "Table" }]);
   };
   useEffect(() => {
-    handleUserFlow(origButtons,tableForceUpdate, setTableForceUpdate,handleMoreInfo,handleCarInfoButton,fixTrimQueryQuotation,query,dealerList,carInfoData,
-        setCarInfoData,extractFiveDigitString,findLocations,handleUserInput,blockQueries,choice,setQuery,zipMode,setZipCode,
-        messages,setMessages,setZipMode,setDistance,setCalcButtons,calcButtonHandler,zipCode,distance,findMode,selectHandler,
-        setFind,appendSelect,setSelect,questionnaireStep,setQuestionnaireAnswers,
-        setQuestionnaireStep,questionnaireAnswers,setForceUpdate,forceUpdate,calcStep,model,setModel,setCalcStep,trim,setTrim,calcMode,setCalcMode,setLeaseStep,setFinanceStep,
-        leaseStep,financeStep,changeChoice,history,setHistory,infoMode,setInfoMode,vehicle,
-        setVehicle,showCalcButtons,setShowCalcButtons,calcHeadingText,setCalcHeadingText, payment,setPayment,setMenuButtons,locateDealershipsFn,changeSelected,
-        setDealers,selected,cat,setCat,origButtons,setOptionButtons
+    handleUserFlow(origButtons,tableForceUpdate, setTableForceUpdate,handleMoreInfo,handleCarInfoButton,
+      fixTrimQueryQuotation,query,dealerList,carInfoData,setCarInfoData,extractFiveDigitString,findLocations,
+      handleUserInput,blockQueries,choice,setQuery,zipMode,setZipCode,messages,setMessages,setZipMode,setDistance,setCalcButtons,calcButtonHandler,
+      zipCode,distance,findMode,selectHandler,setFind,appendSelect,setSelect,questionnaireStep,
+      setQuestionnaireAnswers,setQuestionnaireStep,questionnaireAnswers,
+      setForceUpdate,forceUpdate,calcStep,model,setModel,setCalcStep,trim,
+      setTrim,calcMode,setCalcMode,setLeaseStep,
+      setFinanceStep,leaseStep,financeStep,changeChoice,history,setHistory,infoMode,setInfoMode,vehicle,
+      setVehicle,showCalcButtons,setShowCalcButtons,calcHeadingText,setCalcHeadingText,payment,
+      setPayment,setMenuButtons,locateDealershipsFn,changeSelected,setDealers,selected,cat,setCat, setOptionButtons,locateDealershipsRad
     );
 }, [query, history, calcStep, calcMode, leaseStep, financeStep, choice, menuButtons, model, trim]);
 

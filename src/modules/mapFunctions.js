@@ -34,13 +34,12 @@ export const findLocationsGiven = async (query, distance, dealers) => {
         const closestLocations = sortedLocations.slice(0,count);
         let string = ""
         for(let i = 0; i < closestLocations.length; i++){
-          console.log(closestLocations[i])
           const arr = closestLocations[i][0].split(",--");
           let shortStr = ""
           shortStr += (closestLocations[i][1].toString())+"))" + arr[0]+":"+arr[1];
           string += shortStr + "..";
+          console.log(string)
         }
-        console.log(string)
         return string;
         }
         catch(err){
@@ -89,15 +88,18 @@ export const calculateDistance = (lat1, lon1, lat2, lon2) => {
     return distance;
   }
 export const findLocations = async (query, distance) => {
+  console.log("reahfshfkfbdjfdjfkbdfsdkfbj")
     const zip = extractFiveDigitString(query);
+    console.log(zip)
     if(zip !=null){
       try{
           const result = await findLatLong(zip);
+          console.log(result)
           const distances = {}
         const l = [result.latitude,result.longitude];
         for (const coords in data){
           const [lat,lon] = coords.split(" ");
-          const address = data[coords].name + ": " + data[coords].address + ", " + data[coords].city + " " + lat + " " + lon;
+          const address = data[coords].name + ": " + data[coords].address + ",--" + data[coords].city + " " + lat + " " + lon;
           const distance = calculateDistance(l[0],l[1],parseFloat(lat),parseFloat(lon));
           distances[address] = distance;
         }
@@ -112,11 +114,9 @@ export const findLocations = async (query, distance) => {
         const closestLocations = sortedLocations.slice(0,count);
         let string = ""
         for(let i = 0; i < closestLocations.length; i++){
-          const arr = closestLocations[i][0].split(", ");
+          const arr = closestLocations[i][0].split(",--");
           let shortStr = ""
-          for(let i = 0; i < arr.length-1; i++){
-              shortStr += arr[i] + ", ";
-          }
+          shortStr += (closestLocations[i][1].toString())+"))" + arr[0]+":"+arr[1];
           string += shortStr + "..";
         }
         return string;
@@ -135,6 +135,17 @@ export const findLocations = async (query, distance) => {
       setCalcButtons([]);
       setFind(1);
     };
+  }
+  export const locateDealershipsRad = function( zipCode, distance, setMessages){
+    return () => {
+      findLocations(zipCode, distance).then(loc => {
+        const places = loc.split('..');
+        setMessages((m)=>[...m,{msg:"",author:"Ford Chat.", zip:{
+          zipcode: extractFiveDigitString(zipCode),
+          dist:distance, inf : places.slice(0,-1)
+        }}]);
+      })
+    }
   }
   export const locateDealershipsFn=function(setDealers, setCalcButtons, setSelect, selected, setFind, changeSelected, zipCode, distance, setMessages, setZipMode) {
     return () => {
