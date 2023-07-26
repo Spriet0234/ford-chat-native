@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,18 +11,25 @@ import {
   ScrollView,
   RootTagContext,
 } from "react-native";
-export function MapComponent() {
+import data from "../src/jsons/zipLocations.json";
+import dealerToTrim from "../src/jsons/dealerToTrim.json";
+import info from "../src/jsons/dealerInfo.json";
+export function MapComponent({zip, dist, loc, deal, coords, maintenanceMode, selectedModel, selectedTrim, inf}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Dealerships near you</Text>
-
-      <Dealers />
-      <Dealers />
-      <Dealers />
+      {
+        inf.map((d,index)=>{
+          return <Dealers dealer = {d} ind = {index+1}></Dealers>
+        })
+      }
     </View>
   );
 }
-export function Dealers() {
+
+export function Dealers({dealer, ind}) {
+  const deal = dealer.split(':');
+  const dist = deal[0].split('))')
   return (
     <View
       style={{
@@ -39,7 +46,7 @@ export function Dealers() {
     >
       <View style={{ marginRight: 20, marginLeft: 10 }}>
         <Text style={{ color: "#00095B", fontWeight: 500, fontSize: 17 }}>
-          1
+          {ind}
         </Text>
         <Text
           style={{
@@ -48,7 +55,7 @@ export function Dealers() {
             fontSize: 15,
           }}
         >
-          1 mi.
+          {Math.round(dist[0],4)} mi.
         </Text>
       </View>
       <View>
@@ -60,7 +67,7 @@ export function Dealers() {
             fontSize: 19,
           }}
         >
-          Quality Auto Mall
+          {dist[1]}
         </Text>
         <Text
           style={{
@@ -70,7 +77,7 @@ export function Dealers() {
             fontSize: 17,
           }}
         >
-          55 State Highway, #17, Rutherford, NJ
+          {deal[1]}
         </Text>
         <Text
           style={{
@@ -107,7 +114,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
-    marginTop: 240,
     height: "auto",
     position: "relative",
     paddingBottom: 15,
@@ -120,7 +126,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
-    marginTop: 240,
     height: "auto",
     position: "relative",
     paddingleft: 140,

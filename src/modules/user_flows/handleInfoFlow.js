@@ -81,12 +81,20 @@ export default function handleInfoFlow(
         setMessages((m) => [...m, { msg: "Please enter your zipcode or enable location to continue:", author: "Ford Chat", line: true, zip: {} }]);
         setInfoMode(4);
     } else if (infoMode === 5){
+        setOptionButtons([]);
         return;
     } else {
-        const selectedCopy = selected;
-        selectedCopy[model].push(trim);
-        changeSelected(selectedCopy);
-        locateDealershipsFn(setDealers, setCalcButtons, setSelect, selected, setFind, changeSelected, query, 20, setMessages, setZipMode)();
-        setShowCalcButtons(false);
+        const regex = /\b\d{5}\b/g;
+        const matches = query.match(regex);
+        if (matches && matches.length > 0) {
+          const selectedCopy = selected;
+          selectedCopy[model].push(trim);
+          changeSelected(selectedCopy);
+          locateDealershipsFn(setDealers, setCalcButtons, setSelect, selected, setFind, changeSelected, query, 20, setMessages, setZipMode, setShowCalcButtons)();
+          setShowCalcButtons(false);
+        }
+        else{
+          setMessages((m) => [...m, { msg: "Please enter a valid zip", author: "Ford Chat", line:true,zip:{} }]);
+        }
     }
 }

@@ -4,7 +4,6 @@ import trims from "../jsons/trims.json";
 import trimToDealer from '../jsons/trimToDealer.json'
 
 export const findLocationsGiven = async (query, distance, dealers) => {
-  console.log(dealers);
   const zip = extractFiveDigitString(query);
     if(zip !=null){
       try{
@@ -14,7 +13,7 @@ export const findLocationsGiven = async (query, distance, dealers) => {
         for (const coords in data){
           if(dealers.has(data[coords].name)){
             const [lat,lon] = coords.split(" ");
-            const address = data[coords].name + ": " + data[coords].address + ", " + data[coords].city + " " + lat + " " + lon;
+            const address = data[coords].name + ": " + data[coords].address + ",-- " + data[coords].city + " " + lat + " " + lon;
             const distance = calculateDistance(l[0],l[1],parseFloat(lat),parseFloat(lon));
             distances[address] = distance;
           }
@@ -30,14 +29,13 @@ export const findLocationsGiven = async (query, distance, dealers) => {
         const closestLocations = sortedLocations.slice(0,count);
         let string = ""
         for(let i = 0; i < closestLocations.length; i++){
-          const arr = closestLocations[i][0].split(", ");
+          console.log(closestLocations[i])
+          const arr = closestLocations[i][0].split(",--");
           let shortStr = ""
-          for(let i = 0; i < arr.length-1; i++){
-              shortStr += arr[i] + ", ";
-          }
+          shortStr += (closestLocations[i][1].toString())+"))" + arr[0]+":"+arr[1];
           string += shortStr + "..";
         }
-        console.log(string);
+        console.log(string)
         return string;
         }
         catch(err){
@@ -152,17 +150,7 @@ export const findLocations = async (query, distance) => {
       findLocationsGiven(zipCode,distance, dealers).then(loc=>{
        // setMessages((m)=>[...m,{msg:"",author:"Ford Chat.", line:false, zip: {zipcode: extractFiveDigitString(zipCode), dist:distance, deal: dealers}}]);
           const places = loc.split('..');
-          for(let i = 0; i < places.length-1; i++){
-              if(i === 0){
-                  setMessages((m) => [...m, { msg: places[i], author: "Ford Chat.", line : false,zip: {zipcode: extractFiveDigitString(zipCode), dist:distance, deal: dealers}}]);
-              }
-              else if(i === places.length-2){
-                  setMessages((m) => [...m, { msg: places[i], author: "", line : true,zip:{} }]);
-              }
-              else{
-                  setMessages((m) => [...m, { msg: places[i], author: "", line : false,zip:{}  }]);
-              }
-          }
+          setMessages((m) => [...m, { msg: "", author: "Ford Chat.", line : false,zip: {zipcode: extractFiveDigitString(zipCode), dist:distance, deal: dealers, inf : places.slice(0,-1)}}]);
           setZipMode(0);
   })
   setCalcButtons([]);
@@ -184,8 +172,6 @@ export const findLocations = async (query, distance) => {
   export const appendSelectFn = function(selected, model, changeSelected) {
     return (event) => {
       let val = event.target.getAttribute("value");
-      console.log(val);
-      console.log(selected[model]);
       if (val in selected[model]) {
         let copy = selected[model];
         delete copy[val];
@@ -201,7 +187,6 @@ export const findLocations = async (query, distance) => {
         copy2[model] = copy;
         changeSelected(copy2);
       }
-      console.log(selected);
     };
   }
   

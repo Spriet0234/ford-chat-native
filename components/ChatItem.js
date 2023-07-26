@@ -5,9 +5,10 @@ import {
     Image
   } from "react-native";
 import {ScheduleDrive3} from './ScheduleDrive.js'
-export default function ChatItem({author, msg, line, darkMode, textSize, zip, locs, dropDownOptions, carInfoData, carInfoMode, carSpecInfo, setMessages, setMenuButtons, handleUserInput, selectedCar, setSelectedCar, tableFunctions, messageIndex, selectedCars}){
+import {MapComponent} from './MapComponent.js'
+export default function ChatItem({msg, author, line, darkMode, textSize, zip, locs, dropDownOptions, carInfoData, carInfoMode, carSpecInfo, setMessages, setMenuButtons, handleUserInput, selectedCar, setSelectedCar, tableFunctions, messageIndex, selectedCars, setOptionButtons}){
     return <View style={styles.message(author === "You")}>
-    {author !== "You" && (
+    {author === "Ford Chat" && (
       <View
         style={{
           backgroundColor: "#00095B",
@@ -30,6 +31,11 @@ export default function ChatItem({author, msg, line, darkMode, textSize, zip, lo
     {
       author === "Info" && (
         <ScheduleDrive3 info = {carSpecInfo} handler = {handleUserInput}></ScheduleDrive3>
+      )
+    }
+    {
+      author === "Ford Chat." && (
+        <MapComponent zip={zip.zipcode} dist={zip.dist} loc={locs} deal = {zip.deal} coords = {zip.coordinates} maintenanceMode={zip.maintenanceMode} selectedModel={zip.model} selectedTrim={zip.trim} inf = {zip.inf}></MapComponent>
       )
     }
 

@@ -288,7 +288,7 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
       <Image
         source={imag}
         resizeMode="contain" // Add this line
-        style={{ width: 120, height: 120, alignSelf: "center", marginRight: 10, background: "white" }}
+        style={{ width: 120, height: 120, alignSelf: "center", marginRight: 10}}
       ></Image>
       <Text>{inp}</Text>
       </TouchableOpacity>
