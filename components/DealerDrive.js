@@ -468,7 +468,6 @@ export function DealerDrive6() {
         <View>
           <View>
             <Text style={styles.text23}>Trims to test drive</Text>
-            <Text>Limited to 2 cars to test drive during your appointment</Text>
             <Image
               source={require("../assets/mustang.png")}
               resizeMode="contain" // Add this line
