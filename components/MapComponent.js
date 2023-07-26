@@ -29,7 +29,12 @@ export function MapComponent({zip, dist, loc, deal, coords, maintenanceMode, sel
 
 export function Dealers({dealer, ind}) {
   const deal = dealer.split(':');
-  const dist = deal[0].split('))')
+  const dist = deal[0].split('))');
+  const stuff = deal[2].split(" ")
+  let str = ""
+  for(let j = 1; j < stuff.length-2; j++){
+    str += stuff[j]+ " ";
+  }
   return (
     <View
       style={{
@@ -77,7 +82,7 @@ export function Dealers({dealer, ind}) {
             fontSize: 17,
           }}
         >
-          {deal[1]}
+          {deal[1]+" " + str}
         </Text>
         <Text
           style={{

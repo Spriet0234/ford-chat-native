@@ -116,11 +116,16 @@ export function handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACa
     };
 }
 
-export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,handleMoreInfo,handleCarInfoButton,fixTrimQueryQuotation,query,dealerList,carInfoData,setCarInfoData,extractFiveDigitString,findLocations,handleUserInput,blockQueries,choice,setQuery,zipMode,setZipCode,messages,setMessages,setZipMode,setDistance,
-    setCalcButtons,calcButtonHandler,zipCode,distance,findMode,selectHandler,setFind,appendSelect, setSelect,questionnaireStep,
-    setQuestionnaireAnswers,setQuestionnaireStep,questionnaireAnswers,setForceUpdate,forceUpdate,calcStep,model,setModel,setCalcStep, trim,setTrim,calcMode,setCalcMode,setLeaseStep,setFinanceStep,leaseStep,financeStep,
-    changeChoice,history,setHistory,infoMode,setInfoMode,vehicle,setVehicle,showCalcButtons,setShowCalcButtons,calcHeadingText,setCalcHeadingText,payment,setPayment,setMenuButtons,locateDealershipsFn,changeSelected,setDealers,selected,cat,setCat,setOptionButtons
-) {
+export function handleUserFlow(origButtons,tableForceUpdate, setTableForceUpdate,handleMoreInfo,handleCarInfoButton,
+    fixTrimQueryQuotation,query,dealerList,carInfoData,setCarInfoData,extractFiveDigitString,findLocations,
+    handleUserInput,blockQueries,choice,setQuery,zipMode,setZipCode,messages,setMessages,setZipMode,setDistance,setCalcButtons,calcButtonHandler,
+    zipCode,distance,findMode,selectHandler,setFind,appendSelect,setSelect,questionnaireStep,
+    setQuestionnaireAnswers,setQuestionnaireStep,questionnaireAnswers,
+    setForceUpdate,forceUpdate,calcStep,model,setModel,setCalcStep,trim,
+    setTrim,calcMode,setCalcMode,setLeaseStep,
+    setFinanceStep,leaseStep,financeStep,changeChoice,history,setHistory,infoMode,setInfoMode,vehicle,
+    setVehicle,showCalcButtons,setShowCalcButtons,calcHeadingText,setCalcHeadingText,payment,
+    setPayment,setMenuButtons,locateDealershipsFn,changeSelected,setDealers,selected,cat,setCat, setOptionButtons,locateDealershipsRad) {
     if (!blockQueries.current && query.length > 0) {
         blockQueries.current = true;
         setForceUpdate(!forceUpdate);
@@ -212,7 +217,7 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
             break;
           case "B": {
             setZipMode(1);
-            handleDealerFlow(zipMode, dealerList, setZipCode, query, setMessages, extractFiveDigitString, setZipMode, setDistance, findLocations, zipCode, distance);
+            handleDealerFlow(zipMode, dealerList, setZipCode, query, setMessages, extractFiveDigitString, setZipMode, setDistance, findLocations, zipCode, distance, locateDealershipsRad);
             blockQueries.current = false;
             break;
           }
