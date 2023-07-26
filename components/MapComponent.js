@@ -15,6 +15,7 @@ export function MapComponent() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Dealerships near you</Text>
+
       <Dealers />
       <Dealers />
       <Dealers />

@@ -1,5 +1,7 @@
 import data from "../../jsons/data.json";
-import styles from "../"
+import styles from "../../styles/ChatStyle.js"
+import {View,TextInput,Button,Text,FlatList,StyleSheet,KeyboardAvoidingView,
+    Platform,TouchableOpacity,Image,ScrollView} from "react-native";
 export default function handleInfoFlow(
     handleMoreInfo,
     tableForceUpdate,
@@ -47,56 +49,32 @@ export default function handleInfoFlow(
             }
         }
         setMessages((m) => [...m, { msg: "What other information/services would you like for this car?", author: "", line: true, zip: "" }]);
+        setShowCalcButtons(false);
         setMenuButtons(
             <View style={styles.optionsContainer}>
             <ScrollView horizontal={true}>
-              <TouchableOpacity key={"buy"} style={styles.optionButton} onPress={() =>{ }}>
+              <TouchableOpacity key={"schedule"} style={styles.optionButton} onPress={() =>{ 
+                setMenuButtons([]);
+                setInfoMode(3);
+              }}>
                   <Text>Schedule a test drive</Text>
                 </TouchableOpacity>
-                <TouchableOpacity key={"exist"} style={styles.optionButton} onPress={() =>{ }}>
+                <TouchableOpacity key={"price"} style={styles.optionButton} onPress={() =>{
+                    setMenuButtons([]);
+                    setInfoMode(10);
+                 }}>
                   <Text>Pricing estimation</Text>
                 </TouchableOpacity>
-                <TouchableOpacity key={"info"} style={styles.optionButton} onPress={() => {
+                <TouchableOpacity key={"exist"} style={styles.optionButton} onPress={() => {
+                    setMenuButtons([]);
+                    handleCarInfoButton(model, trim);
+                    setForceUpdate(!forceUpdate);
+                    handleMoreInfo();
                 }}>
                   <Text>More information</Text>
                 </TouchableOpacity>
             </ScrollView>
-            </View>
-        //   <div className="buttons">
-        //         <button
-        //             className="menu"
-        //             onClick={() => {
-        //                 setMenuButtons([]);
-        //                 setInfoMode(3);
-        //             }}
-        //         >
-        //             Schedule a test drive
-        //         </button>
-        //         <button
-        //             className="menu"
-        //             onClick={() => {
-        //                 setMenuButtons([]);
-        //                 setCarInfoData(arr);
-        //                 setMessages((m) => [...m, { msg: "", author: "Table", line: true, zip: "" }]);
-        //             }}
-        //         >
-        //             Pricing estimation
-        //         </button>
-        //         <button
-        //             className="menu"
-        //             onClick={() => {
-        //                 setMenuButtons([]);
-        //                 handleCarInfoButton(model, trim);
-        //                 setForceUpdate(!forceUpdate);
-        //                 handleMoreInfo();
-        //             }}
-        //         >
-        //             More information
-        //         </button>
-        //     </div>
-        );
-        setShowCalcButtons(false);
-        setInfoMode(5);
+            </View>);
         return;
     } else if (infoMode === 3) {
         setShowCalcButtons(false);

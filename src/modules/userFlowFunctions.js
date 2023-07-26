@@ -78,23 +78,19 @@ export function handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACa
                     setShowCalcButtons(true);
                     setCalcButtons(
                         Object.keys(trims).map((model) => (
-                            <TouchableOpacity
-                                className="model-button"
-                                key={model}
-                                value={model}
-                                onClick={() => {
-                                    setQuery(model);
-                                    setModel(model);
-                                    setMessages((m) => [...m, { msg: model, author: "You" }]);
-                                    setCalcButtons([]);
-                                    setShowCalcButtons(false);
-                                }}
-                            >
-                                <img style={{ width: "160px", height: "auto" }} src={images["Default"][model]} />
-                                <br />
-                                {model}
-                                <BiRegistered />
-                            </TouchableOpacity>
+                            <Conts2
+                            key={model}
+                            value={model}
+                            onPress = {() => {
+                                setQuery(model);
+                                setModel(model);
+                                setMessages((m) => [...m, { msg: model, author: "You" }]);
+                                setCalcButtons([]);
+                                setShowCalcButtons(false);
+                            }}
+                            inp = {model}
+                            imag = {images["Default"][model]}
+                            />
                         ))
                     );
                     setCalcStep(1);
@@ -234,7 +230,6 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
                     setCalcButtons(
                         Object.keys(trims).map((model) => (
                             <TouchableOpacity className="model-button" key={model} value={model} onClick={selectHandler}>
-                                {/* <img style={{ width: "160px", height: "auto" }} src={images["Default"][model]} /> */}
                                 <br />
                                 {model}
                             </TouchableOpacity>
@@ -246,8 +241,6 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
                   setShowCalcButtons(true);
                   setCalcButtons(trims[query].map(trim => (
                     <TouchableOpacity className='model-button' key={trim} value={trim} onClick={appendSelect}>{trim}</TouchableOpacity>
-                    // trims[query].contains(trim)) ? <button className='model-button' key={trim} value={trim} onClick={appendSelect}>{trim}</button>
-                    // : <button className='model-button-selected' key={trim} value={trim} onClick={appendSelect}>{trim}</button>
                   )))
                   setSelect(true);
               }
