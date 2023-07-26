@@ -57,7 +57,8 @@ export function handleUserInputFn(setMessages,changeChoice,setMenuButtons,buyACa
                         zip: {},
                     },
                 ]);
-                setMenuButtons([buyACarButtons]);
+                changeChoice('A')
+                setMenuButtons(buyACarButtons);
                 break;
             case "B":
                 setMessages((m) => [...m, { msg: "Find a dealership", author: "You" }]);

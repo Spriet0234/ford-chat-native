@@ -150,7 +150,6 @@ const toggleDarkMode = () => {
                 </TouchableOpacity>
                 <TouchableOpacity key={"A"} style={styles.optionButton} onPress={() => {
                   handleUserInput('A');
-                  setMenuButtons([]);
                 }}>
                   <Text>Car recommendation</Text>
                 </TouchableOpacity>
@@ -181,14 +180,14 @@ const toggleDarkMode = () => {
             setMessages(m=>{return [...m, {msg: "Great! What kind of car are you looking for?", author: "Ford Chat"}]});
             setMenuButtons([])
             }}>
-                  <Text>Find a dealership</Text>
+                  <Text>Ask my own questions</Text>
                 </TouchableOpacity>
             <TouchableOpacity key={""} style={styles.optionButton} onPress={() => {
             setMessages((m) => [...m,{ msg: "Take questionnaire", author: "You", line: true }]);
             setMessages(m=>{return [...m, {msg: "Great! What is your budget range for purchasing a car?", author: "Ford Chat"}]});
             setMenuButtons([])
             }}>
-                  <Text>Find a dealership</Text>
+                  <Text>Take questionnaire</Text>
              </TouchableOpacity>
             </ScrollView>
       </View>
