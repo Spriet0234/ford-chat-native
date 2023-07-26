@@ -2,7 +2,9 @@ import trims from "../../jsons/trims.json";
 import EV from "../../jsons/EV.json";
 import carPrices from "../../jsons/carPrices.json";
 import images from "../../images/image_link.json";
-
+import styles from "../../styles/ChatStyle.js"
+import {View,TextInput,Button,Text,FlatList,StyleSheet,KeyboardAvoidingView,
+    Platform,TouchableOpacity,Image,ScrollView} from "react-native";
 export default function handlePaymentFlow(calcStep, model, setModel, query, setQuery, setMessages, setMenuButtons, setCalcButtons, blockQueries, setCalcStep, trim, setTrim, calcMode, setCalcMode, setLeaseStep, setFinanceStep, leaseStep, financeStep, changeChoice, setShowCalcButtons, setCalcHeadingText, payment, setPayment, origButtons, setOptionButtons) {
   const mosToAPR = { 36: .009, 48: .019, 60: .029, 72: .049, 84: .069 };
   switch (calcStep) {
@@ -14,14 +16,19 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
         setMessages((m) => [...m, { msg: "What trim are you interested in?", author: "Ford Chat", line: true }]);
         setShowCalcButtons(true);
         setCalcButtons(trims[model].map(trim => 
-            (<button className='model-button' key={trim} value={trim} onClick={() => 
-                {setQuery(trim);
-                    setMessages((m) => [...m, { msg: trim, author: "You" }]);
-                    setCalcButtons([]);
-                    setShowCalcButtons(false);}}>
-                        <img style={{ width: "160px", height: "auto" }} src={images[model][trim]} />
-                    <br />{trim}</button>)
-            ));
+            (
+                <Conts2
+                key={trim} value={trim}
+                            onPress = {() => {
+                            setQuery(trim);
+                            setMessages((m) => [...m, { msg: trim, author: "You" }]);
+                            setCalcButtons([]);
+                            setShowCalcButtons(false);
+                            }}
+                            inp = {trim}
+                            imag = {images[model][trim]}
+                            />
+            )));
         blockQueries.current = false;
         setCalcStep(2);
         break;
@@ -33,13 +40,22 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
         const options = ['Lease', 'Finance', 'Buy'];
         setMessages((m) => [...m, { msg: "Would you like to lease, finance, or buy?", author: "Ford Chat", line: true }]);
         //setShowCalcButtons(true);
-        setOptionButtons(<div className='option-buttons'>
-            {options.map(option => (<button className='button-small' key={option} value={option} 
-                onClick={() => 
-                    {setQuery(option);
+        setMenuButtons(
+            <View style={styles.optionsContainer}>
+            <ScrollView horizontal={true}>
+                {
+                    options.map(option => (
+                        <TouchableOpacity key={"option"} value = {"option"} style={styles.optionButton} onPress = {() => {
+                            setQuery(option);
                         setMessages((m) => [...m, { msg: option, author: "You" }]);
-                        setOptionButtons([]);}}>{option}</button>))}
-        </div>);
+                        setMenuButtons([]);
+                        }
+                        }>
+                            <Text>{option}</Text>
+                        </TouchableOpacity>
+                    ))
+                }</ScrollView></View>
+        )
         blockQueries.current = false;
         setCalcStep(3);
         break;
@@ -265,4 +281,16 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
         //setMenuButtons(origButtons);
         break;
     }
+  }
+  export function Conts2({inp,imag, onPress}) {
+    return (
+        <TouchableOpacity onPress = {onPress}>
+      <Image
+        source={imag}
+        resizeMode="contain" // Add this line
+        style={{ width: 120, height: 120, alignSelf: "center", marginRight: 10, background: "white" }}
+      ></Image>
+      <Text>{inp}</Text>
+      </TouchableOpacity>
+    );
   }
