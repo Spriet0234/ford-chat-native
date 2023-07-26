@@ -7,7 +7,17 @@ import {
 import {ScheduleDrive3} from './ScheduleDrive.js'
 import {MapComponent} from './MapComponent.js'
 export default function ChatItem({msg, author, line, darkMode, textSize, zip, locs, dropDownOptions, carInfoData, carInfoMode, carSpecInfo, setMessages, setMenuButtons, handleUserInput, selectedCar, setSelectedCar, tableFunctions, messageIndex, selectedCars, setOptionButtons}){
-    return <View style={styles.message(author === "You")}>
+    return <View>{
+      author === "Info" && (
+        <ScheduleDrive3 info = {carSpecInfo} handler = {handleUserInput}></ScheduleDrive3>
+      )
+    }
+    {
+        author === "Ford Chat." && (
+          <MapComponent zip={zip.zipcode} dist={zip.dist} loc={locs} deal = {zip.deal} coords = {zip.coordinates} maintenanceMode={zip.maintenanceMode} selectedModel={zip.model} selectedTrim={zip.trim} inf = {zip.inf}></MapComponent>
+        )
+    }
+    {author !== "Ford Chat." && author !== "Info" && <View style={styles.message(author === "You")}>
     {author === "Ford Chat" && (
       <View
         style={{
@@ -28,19 +38,10 @@ export default function ChatItem({msg, author, line, darkMode, textSize, zip, lo
         />
       </View>
     )}
-    {
-      author === "Info" && (
-        <ScheduleDrive3 info = {carSpecInfo} handler = {handleUserInput}></ScheduleDrive3>
-      )
-    }
-    {
-      author === "Ford Chat." && (
-        <MapComponent zip={zip.zipcode} dist={zip.dist} loc={locs} deal = {zip.deal} coords = {zip.coordinates} maintenanceMode={zip.maintenanceMode} selectedModel={zip.model} selectedTrim={zip.trim} inf = {zip.inf}></MapComponent>
-      )
-    }
-
     <View style={styles.messageContent(author === "You")}>
       <Text style={{ color: "white" }}>{msg}</Text>
     </View>
+  </View>
+}
   </View>
 }

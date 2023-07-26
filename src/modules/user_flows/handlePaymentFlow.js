@@ -95,13 +95,17 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
                         //setCalcHeadingText('Choose lease duration (months)');
                         setMessages((m) => [...m, { msg: "Please select your desired lease duration, in months", author: "Ford Chat", line: true }]);
                         //setShowCalcButtons(true);
-                        setOptionButtons(<div className='option-buttons'>
-                            {durations.map(dur => (<button className='button-small' key={dur.toString()} value={dur} 
-                            onClick={() => 
+                        setMenuButtons(
+                            <View style={styles.optionsContainer}>
+                                <ScrollView horizontal={true}>
+                                {durations.map(dur => (<TouchableOpacity key={dur.toString()} style={styles.optionButton} value={dur} 
+                            onPress={() => 
                                 {setQuery(dur.toString());
                                     setMessages((m) => [...m, { msg: `${dur.toString()} months`, author: "You" }]);
-                                    setOptionButtons([]);}}>{dur.toString()}</button>))}
-                        </div>);
+                                    setMenuButtons([]);}}><Text>{dur.toString()}</Text></TouchableOpacity>))}
+                                    </ScrollView>
+                            </View>
+                        )
                         blockQueries.current = false;
                         setLeaseStep(3);
                         break;
@@ -127,13 +131,14 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
                         //setCalcHeadingText('Choose loan duration (months)');
                         setMessages((m) => [...m, { msg: "Please select your desired loan duration, in months", author: "Ford Chat", line: true }]);
                         //setShowCalcButtons(true);
-                        setOptionButtons(<div className='option-buttons'>
-                            {durations.map(dur => (<button className='button-small' key={dur.toString()} value={dur} 
-                            onClick={() => 
+                        setMenuButtons(<View style={styles.optionsContainer}>
+                            <ScrollView horizontal={true}>
+                            {durations.map(dur => (<TouchableOpacity  style={styles.optionButton} key={dur.toString()} value={dur} 
+                            onPress={() => 
                                 {setQuery(dur.toString());
                                     setMessages((m) => [...m, { msg: `${dur.toString()} months`, author: "You" }]);
-                                    setOptionButtons([]);}}>{dur.toString()}</button>))}
-                        </div>);                        
+                                    setMenuButtons([]);}}><Text>{dur.toString()}</Text></TouchableOpacity>))}
+                        </ScrollView></View>);                        
                         blockQueries.current = false;
                         setFinanceStep(0);
                         setCalcStep(4);
@@ -170,13 +175,15 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
                 //setCalcHeadingText('Place an order?');
                 setMessages((m) => [...m, { msg: "Would you like to place an order?", author: "Ford Chat", line: true }]);
                 const opts = ['Yes','No'];
-                setOptionButtons(<div className='option-buttons'>
-                    {opts.map(o => (<button className='button-small' key={o.toString()} value={o} 
-                    onClick={() => 
+                setMenuButtons(<View style={styles.optionsContainer}>
+                    <ScrollView horizontal={true}>
+                    {opts.map(o => (<TouchableOpacity style={styles.optionButton} key={o.toString()} value={o} 
+                    onPress={() => 
                         {setQuery(o);
                             setMessages((m) => [...m, { msg: o, author: "You" }]);
-                            setOptionButtons([]);}}>{o}</button>))}
-                    </div>);
+                            setMenuButtons([]);}}><Text>{o}</Text></TouchableOpacity>))}
+                    </ScrollView>
+            </View>);
                 //setShowCalcButtons(true);
                 blockQueries.current = false;
                 setCalcStep(5);
@@ -186,13 +193,15 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
                 //setCalcHeadingText('Send a request?');
                 setMessages((m) => [...m, { msg: "Would you like to send a request to the dealer?", author: "Ford Chat", line: true }]);
                 const opts = ['Yes','No'];
-                setOptionButtons(<div className='option-buttons'>
-                    {opts.map(o => (<button className='button-small' key={o.toString()} value={o} 
-                    onClick={() => 
+                setMenuButtons(<View style={styles.optionsContainer}>
+                    <ScrollView horizontal={true}>
+                    {opts.map(o => (<TouchableOpacity style={styles.optionButton} key={o.toString()} value={o} 
+                    onPress={() => 
                         {setQuery(o);
                             setMessages((m) => [...m, { msg: o, author: "You" }]);
-                            setOptionButtons([]);}}>{o}</button>))}
-                    </div>);                
+                            setMenuButtons([]);}}><Text>{o}</Text></TouchableOpacity>))}
+                    </ScrollView>
+                </View>);               
                 blockQueries.current = false;
                 //setShowCalcButtons(true);
                 setCalcStep(6);
@@ -203,13 +212,15 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
             //setCalcHeadingText('Send a request?');
             setMessages((m) => [...m, { msg: "Would you like to send a request to the dealer?", author: "Ford Chat", line: true }]);
             const opts = ['Yes','No'];
-            setOptionButtons(<div className='option-buttons'>
-                {opts.map(o => (<button className='button-small' key={o.toString()} value={o} 
-                onClick={() => 
+            setMenuButtons(<View style={styles.optionsContainer}>
+                <ScrollView horizontal={true}>
+                {opts.map(o => (<TouchableOpacity style={styles.optionButton} key={o.toString()} value={o} 
+                onPress={() => 
                     {setQuery(o);
                         setMessages((m) => [...m, { msg: o, author: "You" }]);
-                        setOptionButtons([]);}}>{o}</button>))}
-                </div>);            
+                        setMenuButtons([]);}}><Text>{o}</Text></TouchableOpacity>))}
+                </ScrollView>
+            </View>);            
             blockQueries.current = false;
             //setShowCalcButtons(true);
             setCalcStep(6);
@@ -221,13 +232,15 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
                 //setCalcHeadingText('Delivery or pickup?');
                 setMessages((m) => [...m, { msg: "Would you like car delivery or pickup?", author: "Ford Chat", line: true }]);
                 const opts = ['Delivery','Pickup'];
-                setOptionButtons(<div className='option-buttons'>
-                    {opts.map(o => (<button className='button-small' key={o.toString()} value={o} 
-                    onClick={() => 
+                setMenuButtons(<View style={styles.optionsContainer}>
+                    <ScrollView horizontal={true}>
+                    {opts.map(o => (<TouchableOpacity style={styles.optionButton} key={o.toString()} value={o} 
+                    onPress={() => 
                         {setQuery(o);
                             setMessages((m) => [...m, { msg: o, author: "You" }]);
-                            setOptionButtons([]);}}>{o}</button>))}
-                    </div>);                
+                            setMenuButtons([]);}}><Text>{o}</Text></TouchableOpacity>))}
+                    </ScrollView>
+            </View>);                
                 //setShowCalcButtons(true);
                 setCalcStep(6);
                 blockQueries.current = false;

@@ -20,11 +20,16 @@ export const findLocationsGiven = async (query, distance, dealers) => {
         }
         const sortedLocations = Object.entries(distances).sort((a,b)=>a[1]-b[1]);
         let count = 0;
-        while(true){
-          if(sortedLocations[count][1] > distance){
-            break;
+        if(distance === -1){
+          count = 3;
+        }
+        else{
+          while(true){
+            if(sortedLocations[count][1] > distance){
+              break;
+            }
+            count += 1
           }
-          count += 1
         }
         const closestLocations = sortedLocations.slice(0,count);
         let string = ""
