@@ -13,6 +13,7 @@ import data from "../data/zipLocations.json";
 import carData from "../data/car_data.json";
 import {Login} from "./login";
 import {ScheduleDrive, ScheduleDrive2} from "./ScheduleDrive.js"
+import { Provider } from 'react-native-paper';
 const fixTrimQueryQuotation = (model, query) => {
   if (model !== "Transit Cargo Van" && model !== "E-Transit Cargo Van") {
       return query;
@@ -356,6 +357,7 @@ const toggleRecording = () => {
   };
 
   return (
+    <Provider>
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
@@ -451,6 +453,7 @@ const toggleRecording = () => {
         </View>
       </View>
     </KeyboardAvoidingView>
+    </Provider>
   );
 };
 export default ChatInterface;

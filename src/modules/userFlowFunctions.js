@@ -327,6 +327,9 @@ export function handleUserFlow(origButtons,tableForceUpdate,setTableForceUpdate,
                 break;
             default:
                 setQuery("");
+                if(query==="table")
+                    setMessages((m)=>[...m, {msg: "", author: "Table"}])
+                else
                 sendBotResponse(query, history, "chat").then((res) => {
                     setMessages((m) => [...m, { msg: res, author: "Ford Chat", line: true, zip: {} }]);
                     setHistory((h) => [...h.slice(-4), { q: query, a: res }]);
