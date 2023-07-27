@@ -1,6 +1,6 @@
 import { useState } from "react";
 import data from "../src/images/image_link.json";
-import dealerships from "../src/jsons/trimToDealer.json"
+import dealerships from "../src/jsons/trimToDealer.json";
 import {
   View,
   Text,
@@ -13,7 +13,7 @@ import {
   ScrollView,
 } from "react-native";
 //choose vehicle category
-export function ScheduleDrive({calcButtons}) {
+export function ScheduleDrive({ calcButtons }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose vehicle category</Text>
@@ -36,12 +36,15 @@ export function ScheduleDrive({calcButtons}) {
   );
 }
 //model with back button
-export function ScheduleDrive2({calcButtons, mode, back}) {
+export function ScheduleDrive2({ calcButtons, mode, back }) {
   return (
     <View style={styles.container}>
-      {mode === 0 ? <Text style={styles.title}>Choose a specific model</Text>
-      : <Text style={styles.title}>Choose a specific trim</Text>}
-      
+      {mode === 0 ? (
+        <Text style={styles.title}>Choose a specific model</Text>
+      ) : (
+        <Text style={styles.title}>Choose a specific trim</Text>
+      )}
+
       <Text style={styles.text2}>
         Select from the options to specify which cars you are looking for.{" "}
       </Text>
@@ -67,7 +70,7 @@ export function ScheduleDrive2({calcButtons, mode, back}) {
           marginLeft: 20,
           marginBottom: 20,
         }}
-        onPress = {back}
+        onPress={back}
       >
         <Image
           source={require("../assets/arrow.png")}
@@ -75,7 +78,7 @@ export function ScheduleDrive2({calcButtons, mode, back}) {
           style={{
             width: 30,
             height: 20,
-            alignSelf: "start",
+            alignSelf: "flex-start",
             marginRight: 0,
           }}
         ></Image>
@@ -85,7 +88,7 @@ export function ScheduleDrive2({calcButtons, mode, back}) {
   );
 }
 //specific car display
-export function ScheduleDrive3({info, handler}) {
+export function ScheduleDrive3({ info, handler }) {
   return (
     <View style={styles.container2}>
       <View
@@ -95,18 +98,35 @@ export function ScheduleDrive3({info, handler}) {
           justifyContent: "space-between",
           alignContent: "space-between",
           width: "100%",
-          alignItems: "start",
+          alignItems: "flex-start",
         }}
       >
         <View style={{ marginLeft: 30, marginBottom: 20 }}>
           <View>
-            <Text style={styles.title2}>{info.model}&#x24C7;{" "+info.trim + " model"}</Text>
+            <Text style={styles.title2}>
+              {info.model}&#x24C7;{" " + info.trim + " model"}
+            </Text>
+            <View>
+              <Image
+                source={{ uri: data[info.model][info.trim] }}
+                resizeMode="contain" // Add this line
+                style={{
+                  alignSelf: "center",
+
+                  width: 220,
+                  height: 180,
+                  alignSelf: "center",
+                  marginRight: 20,
+                  marginTop: 10,
+                }}
+              ></Image>
+            </View>
             <Text
               style={{
                 color: "#00095B",
                 fontWeight: 400,
                 fontSize: 17,
-                alignSelf: "start",
+                alignSelf: "flex-start",
                 marginTop: 0,
                 marginBottom: 10,
                 marginLeft: 10,
@@ -119,42 +139,34 @@ export function ScheduleDrive3({info, handler}) {
                 color: "#00095B",
                 fontWeight: 400,
                 fontSize: 17,
-                alignSelf: "start",
+                alignSelf: "flex-start",
                 marginTop: 0,
                 marginBottom: 10,
                 marginLeft: 10,
               }}
             >
-              Available at {
-                " " +
+              Available at{" "}
+              {" " +
                 dealerships[info.model][info.trim][0] +
                 ", " +
-                dealerships[info.model][info.trim][1]
-              }
+                dealerships[info.model][info.trim][1]}
             </Text>
           </View>
           <View style={{ marginLeft: 10 }}>
             <Text style={styles.title2}>Your Vehicle </Text>
-            <Text style={styles.text22}>Engine {" " + info["engine_aspiration"]}</Text>
-            <Text style={styles.text22}>Drivetrain {" " + info["drivetrain"]}</Text>
-            <Text style={styles.text22}>Tramsmission {" " + info["transmission"]}</Text>
-            <Text style={styles.text22}>Body Style {" " + info["body_style"]}</Text>
+            <Text style={styles.text22}>
+              Engine {" " + info["engine_aspiration"]}
+            </Text>
+            <Text style={styles.text22}>
+              Drivetrain {" " + info["drivetrain"]}
+            </Text>
+            <Text style={styles.text22}>
+              Tramsmission {" " + info["transmission"]}
+            </Text>
+            <Text style={styles.text22}>
+              Body Style {" " + info["body_style"]}
+            </Text>
           </View>
-        </View>
-        <View>
-          <Image
-            source={data[info.model][info.trim]}
-            resizeMode="contain" // Add this line
-            style={{
-              alignSelf: "flex-end",
-
-              width: 220,
-              height: 180,
-              alignSelf: "center",
-              marginRight: 20,
-              marginTop: 10,
-            }}
-          ></Image>
         </View>
       </View>
       <View
@@ -196,7 +208,7 @@ export function ScheduleDrive3({info, handler}) {
   );
 }
 //Selecting trim
-export function ScheduleDrive4({calcButtons, locate}) {
+export function ScheduleDrive4({ calcButtons, locate }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose specific trim</Text>
@@ -246,7 +258,7 @@ export function ScheduleDrive4({calcButtons, locate}) {
             marginBottom: 10,
             marginLeft: -20,
           }}
-          onPress = {locate}
+          onPress={locate}
         >
           <Text style={{ color: "white", fontSize: 17 }}>
             Locate my closest dealerships
@@ -278,11 +290,16 @@ export function Conts({ inp }) {
 export function Conts2() {
   return (
     <View>
-    <Image
-      source={require("../assets/mustang.png")}
-      resizeMode="contain" // Add this line
-      style={{ width: 180, height: 180, alignSelf: "center", marginRight: 10 }}
-    ></Image>
+      <Image
+        source={require("../assets/mustang.png")}
+        resizeMode="contain" // Add this line
+        style={{
+          width: 180,
+          height: 180,
+          alignSelf: "center",
+          marginRight: 10,
+        }}
+      ></Image>
     </View>
   );
 }
@@ -299,10 +316,10 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   container2: {
-    textAlign: "start",
+    textAlign: "flex-start",
     alignSelf: "center",
-    alignItems: "start",
-    justifyContent: "start",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
@@ -322,7 +339,7 @@ const styles = StyleSheet.create({
     color: "#00095B",
     fontWeight: 500,
     fontSize: 24,
-    alignSelf: "start",
+    alignSelf: "flex-start",
     marginTop: 20,
     marginBottom: 20,
   },
@@ -337,7 +354,7 @@ const styles = StyleSheet.create({
     color: "#00095B",
     fontWeight: 400,
     fontSize: 17,
-    alignSelf: "start",
+    alignSelf: "flex-start",
     marginTop: -4,
     marginBottom: 0,
     padding: 0,
