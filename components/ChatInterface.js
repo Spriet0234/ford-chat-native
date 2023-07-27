@@ -12,7 +12,7 @@ import trims from "../src/jsons/trims.json";
 import data from "../data/zipLocations.json";
 import carData from "../data/car_data.json";
 import {Login} from "./login";
-import {ScheduleDrive, ScheduleDrive2} from "./ScheduleDrive.js"
+import {ScheduleDrive, ScheduleDrive2, ScheduleDrive4} from "./ScheduleDrive.js"
 import { Provider } from 'react-native-paper';
 const fixTrimQueryQuotation = (model, query) => {
   if (model !== "Transit Cargo Van" && model !== "E-Transit Cargo Van") {
@@ -427,8 +427,12 @@ const toggleRecording = () => {
           
           showCalcButtons && 
           (
-            infoMode === 0 ? <ScheduleDrive calcButtons = {calcButtons} back = {goBack}></ScheduleDrive>
-            : <ScheduleDrive2 calcButtons = {calcButtons} mode = {infoMode-1} back = {goBack}></ScheduleDrive2>
+            (infoMode === 0 && findMode !==0 && findMode !==1) ? <ScheduleDrive calcButtons = {calcButtons} back = {goBack}></ScheduleDrive>
+            : (findMode === 1 ? <ScheduleDrive4 calcButtons = {calcButtons} locate = {() => {
+              locateDealershipsFn(setDealers, setCalcButtons, setSelect, selected, setFind, changeSelected, zipCode, -1, setMessages, setZipMode)();
+              setShowCalcButtons(false);
+            }}
+            ></ScheduleDrive4> : (showCalcButtons && <ScheduleDrive2 calcButtons = {calcButtons} mode = {infoMode-1} back = {goBack}></ScheduleDrive2>))
           )
         }
 </ScrollView>

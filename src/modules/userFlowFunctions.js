@@ -161,8 +161,7 @@ export function handleUserFlow(origButtons,tableForceUpdate, setTableForceUpdate
                             }}
                             inp = {model}
                             imag = {images["Default"][model]}
-                            >
-                        </Conts2>
+                            />
                     )));
                 setVehicle(query);
                 blockQueries.current = false;
@@ -233,20 +232,42 @@ export function handleUserFlow(origButtons,tableForceUpdate, setTableForceUpdate
                     setZipCode(query);
                     setMessages((m) => [...m, { msg: "Please select 1-3 models/trims you are looking for.", author: "Ford Chat", line: true, zip: "" }]);
                     setShowCalcButtons(true);
-                    setCalcButtons(
-                        Object.keys(trims).map((model) => (
-                            <TouchableOpacity className="model-button" key={model} value={model} onClick={selectHandler}>
-                                <br />
-                                {model}
-                            </TouchableOpacity>
-                        )));
-                    setFind(1);
+                    let currCalcs = Object.keys(trims).map((model) => (
+                            <Conts2 key={model} value={model} onPress= {() =>{
+                                setQuery(model);
+                                setModel(model);
+                                setCalcButtons([]);
+                                setFind(1);}}
+                            inp = {model}
+                            imag = {images["Default"][model]}>
+                            </Conts2>
+                        ));
+                    setCalcButtons(currCalcs)
                 }
             }
               else if(findMode === 1){
                   setShowCalcButtons(true);
                   setCalcButtons(trims[query].map(trim => (
-                    <TouchableOpacity className='model-button' key={trim} value={trim} onClick={appendSelect}>{trim}</TouchableOpacity>
+                    <Conts2 key={trim} value={trim} onPress={() =>{
+                        let copy, copy2
+                        if (trim in selected[model]) {
+                            copy = selected[model];
+                            delete copy[trim];
+                            copy2 = selected;
+                            delete copy2[model];
+                            copy2[model] = copy;
+                            changeSelected(copy2);
+                          } else {
+                            copy = selected[model];
+                            copy.push(trim);
+                            copy2 = selected;
+                            delete copy2[model];
+                            copy2[model] = copy;
+                            changeSelected(copy2);
+                          }
+                          setForceUpdate(!forceUpdate);
+                    }} inp = {trim}
+                    imag = {images[model][trim]}/>
                   )))
                   setSelect(true);
               }

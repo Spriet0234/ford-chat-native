@@ -163,6 +163,7 @@ export const findLocations = async (query, distance) => {
           }
       }
       setDealers(dealers);
+      console.log("reached")
       findLocationsGiven(zipCode,distance, dealers).then(loc=>{
        // setMessages((m)=>[...m,{msg:"",author:"Ford Chat.", line:false, zip: {zipcode: extractFiveDigitString(zipCode), dist:distance, deal: dealers}}]);
           const places = loc.split('..');

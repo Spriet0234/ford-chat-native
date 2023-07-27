@@ -196,10 +196,10 @@ export function ScheduleDrive3({info, handler}) {
   );
 }
 //Selecting trim
-export function ScheduleDrive4() {
+export function ScheduleDrive4({calcButtons, locate}) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bronco - Choose specific trim</Text>
+      <Text style={styles.title}>Choose specific trim</Text>
       <Text style={styles.text2}>Select 1-3 cars below</Text>
       <ScrollView
         horizontal={true}
@@ -211,10 +211,7 @@ export function ScheduleDrive4() {
           width: "90%",
         }}
       >
-        <Conts2 />
-        <Conts2 />
-        <Conts2 />
-        <Conts2 />
+        {calcButtons}
       </ScrollView>
       <View
         style={{
@@ -249,6 +246,7 @@ export function ScheduleDrive4() {
             marginBottom: 10,
             marginLeft: -20,
           }}
+          onPress = {locate}
         >
           <Text style={{ color: "white", fontSize: 17 }}>
             Locate my closest dealerships
