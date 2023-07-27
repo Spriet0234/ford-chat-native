@@ -36,7 +36,7 @@ export function Dealers({dealer, ind}) {
     str += stuff[j]+ " ";
   }
   return (
-    <View
+    <TouchableOpacity
       style={{
         height: 80,
         width: "90%",
@@ -106,7 +106,7 @@ export function Dealers({dealer, ind}) {
           marginRight: 20,
         }}
       ></Image>
-    </View>
+    </TouchableOpacity>
   );
 }
 

@@ -301,12 +301,14 @@ const toggleRecording = () => {
         { author: "You", msg: message },
       ]);
       setName(message);
+      let a = (message.split(' '))
+      let b = a[a.length-1]
       setTimeout(() => {
         setMessages((prevState) => [
           ...prevState,
           {
             author: "Ford Chat",
-            msg: `Welcome, ${message}! What would you like help with today?`,
+            msg: `Welcome, ${b}! What would you like help with today?`,
           },
         ]);
         setMenuButtons(origButtons);

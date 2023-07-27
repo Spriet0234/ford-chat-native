@@ -297,13 +297,15 @@ export default function handlePaymentFlow(calcStep, model, setModel, query, setQ
   }
   export function Conts2({inp,imag, onPress}) {
     return (
-        <TouchableOpacity onPress = {onPress}>
+        <TouchableOpacity onPress = {onPress} style={{backgroundColor:'white', borderRadius:20, paddingHorizontal:25, paddingVertical:5, marginRight:10}}>
       <Image
         source={imag}
         resizeMode="contain" // Add this line
-        style={{ width: 120, height: 120, alignSelf: "center", marginRight: 10}}
+        style={{ width: 120, height: 80, alignSelf: "center", marginRight: 10}}
       ></Image>
-      <Text>{inp}</Text>
+      <Text style={{margintop:-30, marginBottom:7, color: "#00095B",
+    fontWeight: 400,
+    fontSize: 17,}}>{inp}</Text>
       </TouchableOpacity>
     );
   }
