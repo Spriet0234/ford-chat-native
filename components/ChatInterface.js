@@ -1,5 +1,6 @@
 import styles from '../styles/ChatStyle.js';
 import React, { useState, useRef, useEffect } from "react";
+
 import ChatItem from './ChatItem.js'
 import {View,TextInput,Button,Text,FlatList,StyleSheet,KeyboardAvoidingView,
   Platform,TouchableOpacity,Image,ScrollView} from "react-native";
@@ -101,6 +102,7 @@ const toggleDarkMode = () => {
   const s = new Set();
   const [dealerList, setDealers] = useState(s);
   const [selected, changeSelected] = useState({"Bronco": [],"Bronco Sport":[],"E-Transit Cargo Van":[],"Edge":[],"Escape":[],"Expedition":[],"Explorer":[],"F-150":[],"F-150 Lightning":[],"Mustang Mach-E":[],"Ranger":[],"Transit Cargo Van":[]})
+  const scrollViewRef = useRef();
 
   function handleClicks(clickedButton){
   }
@@ -400,7 +402,7 @@ const toggleRecording = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.chatContainer}>
-      <ScrollView style={styles.chatList} contentContainerStyle={{ paddingBottom: "50%" }}>
+      <ScrollView style={styles.chatList} contentContainerStyle={{  }} ref={scrollViewRef} onContentSizeChange={()=>scrollViewRef.current.scrollToEnd({animated:true})}>
   {messages.map((item, index) => (
     <ChatItem 
       key={index} 
