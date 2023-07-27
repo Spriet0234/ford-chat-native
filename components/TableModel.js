@@ -16,7 +16,7 @@ export default function TableModel(props){
             </DataTable.Header>
             {
                 props.table.map((car, index)=>{
-                    return <DataTable.Row style={{backgroundColor: index%2==0?'#c7dbfc':'#7faaf5'}} key={car[0].substring(0,car[0].length/2)+car[1].substring(0,car[1].length/2)}>
+                    return <DataTable.Row style={{backgroundColor: index%2==0?'#c7dbfc':'#7faaf5'}} key={Math.random()}>
                         {
                             car.map((data, col)=>{
                                 return <Button style={{...dynamicSize}} onPress={()=>{props.onPresses?props.onPresses[col](props.params?props.params[index]:null):alert("Pressed")}} key={data}>
