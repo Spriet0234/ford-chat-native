@@ -188,6 +188,8 @@ const toggleDarkMode = () => {
             setMessages((m) => [...m,{ msg: "Take questionnaire", author: "You", line: true }]);
             setMessages(m=>{return [...m, {msg: "Great! What is your budget range for purchasing a car?", author: "Ford Chat"}]});
             setMenuButtons([])
+            changeChoice("Q");
+            setQuestionnaireStep(1)
             }}>
                   <Text>Take questionnaire</Text>
              </TouchableOpacity>

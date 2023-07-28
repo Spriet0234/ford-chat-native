@@ -55,30 +55,9 @@ export default function CarInfoTable({ data }) {
 
   return (
     <View>
-      <Popup
-        title={popupTitle}
-        visible={visible}
-        content={popupContent}
-        dismiss={hideDialog}
-        actions={
-          <Button
-            onPress={() => {
-              hideDialog();
-            }}
-          >
-            Done
-          </Button>
-        }
-      />
-      <Text style={{ textAlign: "center", fontSize: 15, margin: "2%" }}>
-        Tap on a specific row for more information about that model.
-      </Text>
-      <TableModel
-        header={tableHead}
-        table={tableData}
-        onPresses={[showDialog, showDialog, showDialog]}
-        params={data}
-      />
+        <Popup title={popupTitle} visible={visible} content={popupContent} dismiss={hideDialog} actions={(<Button onPress={()=>{hideDialog()}}>Done</Button>)}/>
+        <Text style={{textAlign: 'center', fontSize: 15, margin: '2%'}}>Tap on a specific row for more information about that model.</Text>
+        <TableModel header={tableHead} table={tableData} onPresses={[showDialog, showDialog, showDialog]} params={data[0]}/>
     </View>
   );
 }
