@@ -15,6 +15,7 @@ import data from "../src/jsons/zipLocations.json";
 import dealerToTrim from "../src/jsons/dealerToTrim.json";
 import info from "../src/jsons/dealerInfo.json";
 import { DealerDrive } from "./DealerDrive";
+
 export function MapComponent({
   zip,
   dist,
@@ -27,17 +28,31 @@ export function MapComponent({
   inf,
 }) {
   const [renderDealer, setRenderDealer] = useState(false);
+  const [pickedDealer, setPickedDealer] = useState("");
+
   return (
-    <View style={styles.container}>
-      {renderDealer?<DealerDrive/>:<View><Text style={styles.title}>Dealerships near you</Text>
-      {inf.map((d, index) => {
-        return <Dealers setRenderDealer={setRenderDealer} dealer={d} ind={index + 1}></Dealers>;
-      })}</View>}
+    <View>
+      {renderDealer && <DealerDrive dealer={pickedDealer} />}
+      {!renderDealer && (
+        <View style={styles.container}>
+          <Text style={styles.title}>Dealerships near you</Text>
+          {inf.map((d, index) => {
+            return (
+              <Dealers
+                setDealer={(a) => setPickedDealer(a)}
+                setRenderDealer={setRenderDealer}
+                dealer={d}
+                ind={index + 1}
+              ></Dealers>
+            );
+          })}
+        </View>
+      )}
     </View>
   );
 }
 
-export function Dealers({ dealer, ind, setRenderDealer }) {
+export function Dealers({ setDealer, dealer, ind, setRenderDealer }) {
   const deal = dealer.split(":");
   const dist = deal[0].split("))");
   const stuff = deal[2].split(" ");
@@ -57,8 +72,9 @@ export function Dealers({ dealer, ind, setRenderDealer }) {
         padding: 10,
         alignItems: "center",
       }}
-      onPress={()=>{
-        setRenderDealer(true)
+      onPress={() => {
+        setRenderDealer(true);
+        setDealer(dealer);
       }}
     >
       <View style={{ marginRight: 20, marginLeft: 10, flex: 1 }}>

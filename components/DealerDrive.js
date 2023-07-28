@@ -13,13 +13,13 @@ import {
 import DatePicker from "react-datepicker";
 //import "react-datepicker/dist/react-datepicker.css";
 
-export function DealerDrive() {
+export function DealerDrive({ dealer }) {
   const handlePress = () => Linking.openURL("https://www.example.com");
 
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.title}>Wayne Ford</Text>
+        <Text style={styles.title}>{dealer}</Text>
       </View>
       <Image
         source={require("../assets/deal.png")}
@@ -89,7 +89,7 @@ export function DealerDrive() {
               marginBottom: 10,
             }}
           >
-            444 Rte 46, Wayne, NJ 07470
+            loc
           </Text>
         </View>
 
