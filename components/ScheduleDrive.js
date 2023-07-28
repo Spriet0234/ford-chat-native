@@ -235,8 +235,8 @@ export function ScheduleDrive4({ calcButtons, locate }) {
         style={{
           display: "flex",
           flexDirection: "row",
-          marginBottom: 30,
-          marginTop: 20,
+          marginBottom: 15,
+          marginTop: 10,
           width: "90%",
         }}
       >
@@ -249,13 +249,13 @@ export function ScheduleDrive4({ calcButtons, locate }) {
           paddingHorizontal: 20,
           paddingVertical: 5,
           borderRadius: 20,
-          marginBottom: 10,
-          marginLeft: -20,
+          marginBottom: 25,
+
           alignSelf: "center",
         }}
         onPress={locate}
       >
-        <Text style={{ color: "white", fontSize: 17, marginBottom: 5 }}>
+        <Text style={{ color: "white", fontSize: 17 }}>
           Locate my closest dealerships
         </Text>
       </TouchableOpacity>
@@ -334,6 +334,7 @@ const styles = StyleSheet.create({
     height: "auto",
     position: "relative",
     paddingBottom: 25,
+    marginBottom: 15,
   },
   container2: {
     textAlign: "flex-start",
