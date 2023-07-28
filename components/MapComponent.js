@@ -14,26 +14,34 @@ import {
 import data from "../src/jsons/zipLocations.json";
 import dealerToTrim from "../src/jsons/dealerToTrim.json";
 import info from "../src/jsons/dealerInfo.json";
-export function MapComponent({zip, dist, loc, deal, coords, maintenanceMode, selectedModel, selectedTrim, inf}) {
+export function MapComponent({
+  zip,
+  dist,
+  loc,
+  deal,
+  coords,
+  maintenanceMode,
+  selectedModel,
+  selectedTrim,
+  inf,
+}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Dealerships near you</Text>
-      {
-        inf.map((d,index)=>{
-          return <Dealers dealer = {d} ind = {index+1}></Dealers>
-        })
-      }
+      {inf.map((d, index) => {
+        return <Dealers dealer={d} ind={index + 1}></Dealers>;
+      })}
     </View>
   );
 }
 
-export function Dealers({dealer, ind}) {
-  const deal = dealer.split(':');
-  const dist = deal[0].split('))');
-  const stuff = deal[2].split(" ")
-  let str = ""
-  for(let j = 1; j < stuff.length-2; j++){
-    str += stuff[j]+ " ";
+export function Dealers({ dealer, ind }) {
+  const deal = dealer.split(":");
+  const dist = deal[0].split("))");
+  const stuff = deal[2].split(" ");
+  let str = "";
+  for (let j = 1; j < stuff.length - 2; j++) {
+    str += stuff[j] + " ";
   }
   return (
     <TouchableOpacity
@@ -60,13 +68,13 @@ export function Dealers({dealer, ind}) {
             fontSize: 15,
           }}
         >
-          {Math.round(dist[0],4)} mi.
+          {Math.round(dist[0], 4)} mi.
         </Text>
       </View>
       <View>
         <Text
           style={{
-            textAlign: "start",
+            textAlign: "flex-start",
             color: "#00095B",
             fontWeight: 500,
             fontSize: 19,
@@ -76,18 +84,18 @@ export function Dealers({dealer, ind}) {
         </Text>
         <Text
           style={{
-            textAlign: "start",
+            textAlign: "flex-start",
             color: "#00095B",
             fontWeight: 400,
             fontSize: 17,
           }}
         >
-          {deal[1]+" " + str}
+          {deal[1] + " " + str}
         </Text>
         <Text
           style={{
-            textAlign: "start",
-            textAlign: "start",
+            textAlign: "flex-start",
+            textAlign: "flex-start",
             color: "#00095B",
             fontWeight: 400,
             fontSize: 17,
@@ -124,10 +132,10 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   container2: {
-    textAlign: "start",
+    textAlign: "flex-start",
     alignSelf: "center",
-    alignItems: "start",
-    justifyContent: "start",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
@@ -139,7 +147,7 @@ const styles = StyleSheet.create({
     color: "#00095B",
     fontWeight: 500,
     fontSize: 21,
-    alignSelf: "start",
+    alignSelf: "flex-start",
     marginTop: 20,
     marginLeft: "20%",
     marginBottom: 5,
