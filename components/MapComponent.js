@@ -14,6 +14,8 @@ import {
 import data from "../src/jsons/zipLocations.json";
 import dealerToTrim from "../src/jsons/dealerToTrim.json";
 import info from "../src/jsons/dealerInfo.json";
+import { DealerDrive } from "./DealerDrive";
+
 export function MapComponent({
   zip,
   dist,
@@ -25,17 +27,32 @@ export function MapComponent({
   selectedTrim,
   inf,
 }) {
+  const [renderDealer, setRenderDealer] = useState(false);
+  const [pickedDealer, setPickedDealer] = useState("");
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Dealerships near you</Text>
-      {inf.map((d, index) => {
-        return <Dealers dealer={d} ind={index + 1}></Dealers>;
-      })}
+    <View>
+      {renderDealer && <DealerDrive dealer={pickedDealer} />}
+      {!renderDealer && (
+        <View style={styles.container}>
+          <Text style={styles.title}>Dealerships near you</Text>
+          {inf.map((d, index) => {
+            return (
+              <Dealers
+                setDealer={(a) => setPickedDealer(a)}
+                setRenderDealer={setRenderDealer}
+                dealer={d}
+                ind={index + 1}
+              ></Dealers>
+            );
+          })}
+        </View>
+      )}
     </View>
   );
 }
 
-export function Dealers({ dealer, ind }) {
+export function Dealers({ setDealer, dealer, ind, setRenderDealer }) {
   const deal = dealer.split(":");
   const dist = deal[0].split("))");
   const stuff = deal[2].split(" ");
@@ -46,7 +63,7 @@ export function Dealers({ dealer, ind }) {
   return (
     <TouchableOpacity
       style={{
-        height: 80,
+        height: "auto", // Make the height auto
         width: "90%",
         backgroundColor: "white",
         borderRadius: 20,
@@ -54,10 +71,14 @@ export function Dealers({ dealer, ind }) {
         flexDirection: "row",
         padding: 10,
         alignItems: "center",
-        justifyContent: "space-between",
+      }}
+      onPress={() => {
+        setRenderDealer(true);
+        setDealer(dealer);
       }}
     >
-      <View style={{ marginRight: 20, marginLeft: 10 }}>
+      <View style={{ marginRight: 20, marginLeft: 10, flex: 1 }}>
+        {" "}
         <Text style={{ color: "#00095B", fontWeight: 500, fontSize: 17 }}>
           {ind}
         </Text>
@@ -71,7 +92,8 @@ export function Dealers({ dealer, ind }) {
           {Math.round(dist[0], 4)} mi.
         </Text>
       </View>
-      <View>
+      <View style={{ flex: 3 }}>
+        {" "}
         <Text
           style={{
             textAlign: "flex-start",
@@ -95,7 +117,6 @@ export function Dealers({ dealer, ind }) {
         <Text
           style={{
             textAlign: "flex-start",
-            textAlign: "flex-start",
             color: "#00095B",
             fontWeight: 400,
             fontSize: 17,
@@ -104,16 +125,18 @@ export function Dealers({ dealer, ind }) {
           Open-Closes 7pm
         </Text>
       </View>
-      <Image
-        source={require("../assets/SqArrow.png")}
-        resizeMode="contain" // Add this line
-        style={{
-          width: 30,
-          alignSelf: "center",
-          height: 20,
-          marginRight: 20,
-        }}
-      ></Image>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        {" "}
+        <Image
+          source={require("../assets/SqArrow.png")}
+          resizeMode="contain" // Add this line
+          style={{
+            width: 30,
+            alignSelf: "center",
+            height: 20,
+          }}
+        ></Image>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -147,9 +170,9 @@ const styles = StyleSheet.create({
     color: "#00095B",
     fontWeight: 500,
     fontSize: 21,
-    alignSelf: "flex-start",
+    alignSelf: "center",
     marginTop: 20,
-    marginLeft: "20%",
-    marginBottom: 5,
+
+    marginBottom: 15,
   },
 });

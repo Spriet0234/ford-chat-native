@@ -17,9 +17,12 @@ export function ScheduleDrive({ calcButtons }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose vehicle category</Text>
-      <Text style={styles.text2}>
-        Select from the options to specify which cars you are looking for.
-      </Text>
+
+      <View style={{ padding: 15 }}>
+        <Text style={styles.text2}>
+          Select from the options to specify which cars you are looking for.
+        </Text>
+      </View>
       <ScrollView
         horizontal={true}
         style={{
@@ -45,9 +48,11 @@ export function ScheduleDrive2({ calcButtons, mode, back }) {
         <Text style={styles.title}>Choose a specific trim</Text>
       )}
 
-      <Text style={styles.text2}>
-        Select from the options to specify which cars you are looking for.{" "}
-      </Text>
+      <View style={{ padding: 15 }}>
+        <Text style={styles.text2}>
+          Select from the options to specify which cars you are looking for.
+        </Text>
+      </View>
       <ScrollView
         horizontal={true}
         style={{
@@ -66,9 +71,9 @@ export function ScheduleDrive2({ calcButtons, mode, back }) {
           flexDirection: "row",
           justifyContent: "flex-start",
           alignItems: "flex-start",
-          alignSelf: "flex-start",
-          marginLeft: 20,
-          marginBottom: 20,
+          position: "absolute",
+          left: 20,
+          bottom: 20,
         }}
         onPress={back}
       >
@@ -178,16 +183,28 @@ export function ScheduleDrive3({ info, handler }) {
           marginTop: 20,
         }}
       >
-        <TouchableOpacity style={{ flexDirection: "row" }}>
+        <TouchableOpacity
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            position: "absolute",
+            left: 20,
+            bottom: 20,
+          }}
+          onPress={back}
+        >
           <Image
             source={require("../assets/arrow.png")}
-            resizeMode="contain"
+            resizeMode="contain" // Add this line
             style={{
               width: 30,
               height: 20,
+              alignSelf: "flex-start",
               marginRight: 0,
             }}
-          />
+          ></Image>
           <Text> Back</Text>
         </TouchableOpacity>
 
@@ -218,54 +235,55 @@ export function ScheduleDrive4({ calcButtons, locate }) {
         style={{
           display: "flex",
           flexDirection: "row",
-          marginBottom: 30,
-          marginTop: 20,
+          marginBottom: 15,
+          marginTop: 10,
           width: "90%",
         }}
       >
         {calcButtons}
       </ScrollView>
-      <View
+
+      <TouchableOpacity
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          width: "100%", // The parent View takes the entire width of the screen
-          marginBottom: 20,
+          backgroundColor: "#00095B",
+          paddingHorizontal: 20,
+          paddingVertical: 5,
+          borderRadius: 20,
+          marginBottom: 25,
+
+          alignSelf: "center",
         }}
+        onPress={locate}
       >
-        <TouchableOpacity
+        <Text style={{ color: "white", fontSize: 17 }}>
+          Locate my closest dealerships
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          position: "absolute",
+          left: 20,
+          bottom: 20,
+        }}
+        //onPress={back}
+      >
+        <Image
+          source={require("../assets/arrow.png")}
+          resizeMode="contain" // Add this line
           style={{
-            flexDirection: "row",
+            width: 30,
+            height: 20,
+            alignSelf: "flex-start",
+            marginRight: 0,
           }}
-        >
-          <Image
-            source={require("../assets/arrow.png")}
-            resizeMode="contain"
-            style={{
-              width: 30,
-              height: 20,
-              marginLeft: 20,
-            }}
-          />
-          <Text> Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#00095B",
-            paddingHorizontal: 20,
-            paddingVertical: 5,
-            borderRadius: 20,
-            marginBottom: 10,
-            marginLeft: -20,
-          }}
-          onPress={locate}
-        >
-          <Text style={{ color: "white", fontSize: 17 }}>
-            Locate my closest dealerships
-          </Text>
-        </TouchableOpacity>
-        <View></View> {/* This is the empty View acting as a spacer */}
-      </View>
+        ></Image>
+        <Text> Back</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -281,6 +299,7 @@ export function Conts({ inp }) {
         justifyContent: "center",
         alignContent: "center",
         display: "flex",
+        padding: 5,
       }}
     >
       <Text style={{ fontSize: 19 }}>{inp}</Text>
@@ -314,6 +333,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     height: "auto",
     position: "relative",
+    paddingBottom: 25,
+    marginBottom: 15,
   },
   container2: {
     textAlign: "flex-start",
