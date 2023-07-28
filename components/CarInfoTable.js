@@ -2,7 +2,7 @@ import { View } from "react-native";
 
 import TableModel from "./TableModel";
 import Popup from "./Popup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Text } from "react-native-paper";
 
 import images from "../src/images/image_link.json";
@@ -13,11 +13,12 @@ let onPresses = [];
 
 //import '../src/styles/Table.css'
 
-export default function CarInfoTable({ data }) {
+export default function CarInfoTable({ data, num }) {
   //Array which will be used to generate table
-  const [tableData, setTableData] = useState(
-    data[0].map((car) => [car.model, car.trim, car.msrp])
-  );
+  console.log("I  FIRST", num)
+  console.log("THE DATA", data)
+  const [tableData, setTableData] = useState([]);
+  console.log("I RECEIVED", tableData)
   const [visible, setVisible] = useState(false);
   const [popupTitle, setPopupTitle] = useState("Info about...");
   const [popupContent, setPopupContent] = useState(
@@ -25,6 +26,10 @@ export default function CarInfoTable({ data }) {
       <h1>Hello</h1>
     </View>
   );
+
+  useEffect(()=>{
+    setTableData(data[0].map((car) => [car.model, car.trim, car.msrp]))
+  }, [data])
 
   const showDialog = (dt) => {
     setPopupTitle("Info about this Ford " + dt.model);

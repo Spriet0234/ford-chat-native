@@ -281,6 +281,7 @@ const toggleRecording = () => {
   //---------------------------------------------
   //SEND MESSAGES
   const handleMoreInfo = () => {
+    console.log("LEN", messages.length+1)
     setMessages((m) => [...m, { msg: "", author: "Table" }]);
   };
   useEffect(() => {
@@ -427,6 +428,7 @@ const toggleRecording = () => {
       messageIndex={index}
       selectedCars={selectedCars}
       setOptionButtons={setOptionButtons}
+      len={index}
     />
   ))}
   {

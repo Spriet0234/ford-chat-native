@@ -327,165 +327,72 @@ export function handleUserFlow(
           if (infoMode === 1) {
             setCalcHeadingText("Choose specific model");
             setCalcButtons(
-              Object.keys(vehicles[cat]).map((model) => (
-                <Conts2
-                  key={model}
-                  value={model}
-                  onPress={() => {
-                    setQuery(model);
-                    setInfoMode(2);
-                    setModel(model);
-                  }}
-                  inp={model}
-                  imag={images["Default"][model]}
-                />
-              ))
-            );
+                Object.keys(vehicles[cat]).map((model) => (
+                    <button
+                        className="model-button"
+                        key={model}
+                        value={model}
+                        onClick={() => {
+                            setQuery(model);
+                            setInfoMode(2);
+                            setModel(model);
+                        }}
+                    >
+                        <img style={{ width: "160px", height: "auto" }} src={images["Default"][model]} />
+                        <br />
+                        {model}
+                    </button>
+                )));
             setVehicle(query);
             blockQueries.current = false;
-            break;
-          } else if (infoMode === 2) {
+            break;}
+        else if(infoMode === 2){
             setCalcHeadingText(query + ": Choose specific trim");
             setCalcButtons(
-              vehicles[vehicle][model].map((trim) => (
-                <Conts2
-                  key={trim}
-                  value={trim}
-                  onPress={() => {
-                    handleInfoFlow(
-                      handleMoreInfo,
-                      tableForceUpdate,
-                      setTableForceUpdate,
-                      forceUpdate,
-                      setForceUpdate,
-                      handleCarInfoButton,
-                      model,
-                      trim,
-                      setMessages,
-                      setModel,
-                      setQuery,
-                      setInfoMode,
-                      setCalcButtons,
-                      setMenuButtons,
-                      handleUserInput,
-                      setShowCalcButtons,
-                      setCarInfoData,
-                      infoMode,
-                      selected,
-                      changeSelected,
-                      setDealers,
-                      locateDealershipsFn,
-                      setSelect,
-                      setFind,
-                      query,
-                      setZipMode,
-                      setOptionButtons
-                    );
-                    setTrim(trim);
-                  }}
-                  inp={trim}
-                  imag={images[model][trim]}
-                ></Conts2>
-              ))
-            );
-            blockQueries.current = false;
-            break;
-          } else if (infoMode === 3) {
-            handleInfoFlow(
-              handleMoreInfo,
-              tableForceUpdate,
-              setTableForceUpdate,
-              forceUpdate,
-              setForceUpdate,
-              handleCarInfoButton,
-              model,
-              trim,
-              setMessages,
-              setModel,
-              setQuery,
-              setInfoMode,
-              setCalcButtons,
-              setMenuButtons,
-              handleUserInput,
-              setShowCalcButtons,
-              setCarInfoData,
-              infoMode,
-              selected,
-              changeSelected,
-              setDealers,
-              locateDealershipsFn,
-              setSelect,
-              setFind,
-              query,
-              setZipMode,
-              setOptionButtons
-            );
-            blockQueries.current = false;
-            break;
-          } else if (infoMode === 4) {
-            handleInfoFlow(
-              handleMoreInfo,
-              tableForceUpdate,
-              setTableForceUpdate,
-              forceUpdate,
-              setForceUpdate,
-              handleCarInfoButton,
-              model,
-              trim,
-              setMessages,
-              setModel,
-              setQuery,
-              setInfoMode,
-              setCalcButtons,
-              setMenuButtons,
-              handleUserInput,
-              setShowCalcButtons,
-              setCarInfoData,
-              infoMode,
-              selected,
-              changeSelected,
-              setDealers,
-              locateDealershipsFn,
-              setSelect,
-              setFind,
-              query,
-              setZipMode
-            );
-            blockQueries.current = false;
-            break;
-          } else if (infoMode === 10) {
+                vehicles[vehicle][model].map((trim) => (
+                    <button
+                        className="model-button"
+                        key={trim}
+                        value={trim}
+                        onClick={() => {
+                            handleInfoFlow(handleMoreInfo,tableForceUpdate,setTableForceUpdate,forceUpdate,setForceUpdate,handleCarInfoButton,model,trim,setMessages,
+                                setModel,setQuery,setInfoMode,setCalcButtons,setMenuButtons,handleUserInput,setShowCalcButtons,setCarInfoData,
+                                infoMode,selected,changeSelected,setDealers,locateDealershipsFn,setSelect,setFind,query,setZipMode,setOptionButtons
+                            );
+                            setTrim(trim);
+                        }}
+                    >
+                    <img style={{ width: "160px", height: "auto" }} src={images[model][trim]}/>
+                      <br />{trim}
+                  </button>)));
+                  blockQueries.current = false;
+                  break;
+        }
+        else if(infoMode === 3){
+          handleInfoFlow(handleMoreInfo,tableForceUpdate,setTableForceUpdate,forceUpdate,setForceUpdate,handleCarInfoButton,model,trim,setMessages,
+            setModel,setQuery,setInfoMode,setCalcButtons,setMenuButtons,handleUserInput,setShowCalcButtons,setCarInfoData,
+            infoMode,selected,changeSelected,setDealers,locateDealershipsFn,setSelect,setFind,query,setZipMode,setOptionButtons);
+          blockQueries.current = false;
+        break;
+        }
+        else if(infoMode === 4){
+          handleInfoFlow(handleMoreInfo,tableForceUpdate,setTableForceUpdate,forceUpdate,setForceUpdate,handleCarInfoButton, model,trim, setMessages, setModel, setQuery, setInfoMode, setCalcButtons, setMenuButtons, handleUserInput, setShowCalcButtons, setCarInfoData, infoMode, selected, changeSelected, setDealers, locateDealershipsFn, setSelect, setFind, query, setZipMode);
+          blockQueries.current = false;
+          break;
+        }
+        else if(infoMode === 10){
             setCalcStep(2);
-            changeChoice("D");
-            handlePaymentFlow(
-              calcStep,
-              model,
-              setModel,
-              query,
-              setQuery,
-              setMessages,
-              setMenuButtons,
-              setCalcButtons,
-              blockQueries,
-              setCalcStep,
-              trim,
-              setTrim,
-              calcMode,
-              setCalcMode,
-              setLeaseStep,
-              setFinanceStep,
-              leaseStep,
-              financeStep,
-              changeChoice,
-              setShowCalcButtons,
-              setCalcHeadingText,
-              payment,
-              setPayment,
-              origButtons,
-              setOptionButtons
+            changeChoice('D');
+            handlePaymentFlow(calcStep,model,setModel,query,setQuery,
+                setMessages,setMenuButtons,setCalcButtons,blockQueries,setCalcStep,trim,setTrim,calcMode,
+                setCalcMode,setLeaseStep,setFinanceStep,leaseStep,financeStep,changeChoice,
+                setShowCalcButtons,setCalcHeadingText,payment,setPayment,origButtons,setOptionButtons
             );
             blockQueries.current = false;
             break;
-          }
+        }
+        blockQueries.current = false;
+        break;
         case "A":
           setQuery("");
           sendRecommendRequestToServer(
