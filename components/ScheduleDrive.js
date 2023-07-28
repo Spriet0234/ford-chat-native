@@ -193,7 +193,6 @@ export function ScheduleDrive3({ info, handler }) {
             left: 20,
             bottom: 20,
           }}
-          onPress={back}
         >
           <Image
             source={require("../assets/arrow.png")}
