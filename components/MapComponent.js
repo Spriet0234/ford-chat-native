@@ -74,7 +74,7 @@ export function Dealers({ setDealer, dealer, ind, setRenderDealer }) {
       }}
       onPress={() => {
         setRenderDealer(true);
-        setDealer(dealer);
+        setDealer(dist[1]);
       }}
     >
       <View style={{ marginRight: 20, marginLeft: 10, flex: 1 }}>

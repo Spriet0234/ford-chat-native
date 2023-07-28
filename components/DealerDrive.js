@@ -11,9 +11,12 @@ import {
   ScrollView,
 } from "react-native";
 import DatePicker from "react-datepicker";
+import dealers from '../src/jsons/dealerInfo.json'
 //import "react-datepicker/dist/react-datepicker.css";
 
 export function DealerDrive({ dealer }) {
+  const info = dealers[dealer];
+  console.log(info)
   const handlePress = () => Linking.openURL("https://www.example.com");
 
   return (
@@ -89,7 +92,7 @@ export function DealerDrive({ dealer }) {
               marginBottom: 10,
             }}
           >
-            loc
+            {dealer.toLowerCase().replace(/\s/g, '') +".com"}
           </Text>
         </View>
 
@@ -120,7 +123,7 @@ export function DealerDrive({ dealer }) {
               marginBottom: 10,
             }}
           >
-            (888)349-6957
+            {info.number}
           </Text>
         </View>
         <View
@@ -150,7 +153,7 @@ export function DealerDrive({ dealer }) {
               marginBottom: 10,
             }}
           >
-            waynefordcars.com
+            {info.address}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
