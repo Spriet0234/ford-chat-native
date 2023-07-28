@@ -388,10 +388,6 @@ const toggleRecording = () => {
           style={{ position: "absolute", right: 30 }}
           onPress={() => {
             if (!menuVisible) {
-              setOpen1(false);
-              setOpen2(false);
-              setOpen3(false);
-              setOpen4(false);
               setMenuVisible(true);
             } else {
               setMenuVisible(false);
@@ -402,7 +398,7 @@ const toggleRecording = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.chatContainer}>
-      <ScrollView style={styles.chatList} contentContainerStyle={{  }} ref={scrollViewRef} onContentSizeChange={()=>scrollViewRef.current.scrollToEnd({animated:true})}>
+      <ScrollView style={styles.chatList} contentContainerStyle={{}} ref={scrollViewRef} onContentSizeChange={()=>scrollViewRef.current.scrollToEnd({animated:true})}>
   {messages.map((item, index) => (
     <ChatItem 
       key={index} 

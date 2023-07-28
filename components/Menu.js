@@ -4,6 +4,7 @@ export default function Menu({handleClicks, menuVisible, setMenuVisible}){
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
+  return (
 <View
           style={{
             backgroundColor: "white",
@@ -279,5 +280,5 @@ export default function Menu({handleClicks, menuVisible, setMenuVisible}){
               )}
             </View>
           </View>
-        </View>
+        </View>)
                     }
