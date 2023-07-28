@@ -14,31 +14,56 @@ import {
 import data from "../src/jsons/zipLocations.json";
 import dealerToTrim from "../src/jsons/dealerToTrim.json";
 import info from "../src/jsons/dealerInfo.json";
-export function MapComponent({zip, dist, loc, deal, coords, maintenanceMode, selectedModel, selectedTrim, inf}) {
+import { DealerDrive } from "./DealerDrive";
+
+export function MapComponent({
+  zip,
+  dist,
+  loc,
+  deal,
+  coords,
+  maintenanceMode,
+  selectedModel,
+  selectedTrim,
+  inf,
+}) {
+  const [renderDealer, setRenderDealer] = useState(false);
+  const [pickedDealer, setPickedDealer] = useState("");
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Dealerships near you</Text>
-      {
-        inf.map((d,index)=>{
-          return <Dealers dealer = {d} ind = {index+1}></Dealers>
-        })
-      }
+    <View>
+      {renderDealer && <DealerDrive dealer={pickedDealer} />}
+      {!renderDealer && (
+        <View style={styles.container}>
+          <Text style={styles.title}>Dealerships near you</Text>
+          {inf.map((d, index) => {
+            return (
+              <Dealers
+                setDealer={(a) => setPickedDealer(a)}
+                setRenderDealer={setRenderDealer}
+                dealer={d}
+                ind={index + 1}
+              ></Dealers>
+            );
+          })}
+        </View>
+      )}
     </View>
   );
 }
 
-export function Dealers({dealer, ind}) {
-  const deal = dealer.split(':');
-  const dist = deal[0].split('))');
-  const stuff = deal[2].split(" ")
-  let str = ""
-  for(let j = 1; j < stuff.length-2; j++){
-    str += stuff[j]+ " ";
+export function Dealers({ setDealer, dealer, ind, setRenderDealer }) {
+  const deal = dealer.split(":");
+  const dist = deal[0].split("))");
+  const stuff = deal[2].split(" ");
+  let str = "";
+  for (let j = 1; j < stuff.length - 2; j++) {
+    str += stuff[j] + " ";
   }
   return (
     <TouchableOpacity
       style={{
-        height: 80,
+        height: "auto", // Make the height auto
         width: "90%",
         backgroundColor: "white",
         borderRadius: 20,
@@ -46,10 +71,14 @@ export function Dealers({dealer, ind}) {
         flexDirection: "row",
         padding: 10,
         alignItems: "center",
-        justifyContent: "space-between",
+      }}
+      onPress={() => {
+        setRenderDealer(true);
+        setDealer(dealer);
       }}
     >
-      <View style={{ marginRight: 20, marginLeft: 10 }}>
+      <View style={{ marginRight: 20, marginLeft: 10, flex: 1 }}>
+        {" "}
         <Text style={{ color: "#00095B", fontWeight: 500, fontSize: 17 }}>
           {ind}
         </Text>
@@ -60,13 +89,14 @@ export function Dealers({dealer, ind}) {
             fontSize: 15,
           }}
         >
-          {Math.round(dist[0],4)} mi.
+          {Math.round(dist[0], 4)} mi.
         </Text>
       </View>
-      <View>
+      <View style={{ flex: 3 }}>
+        {" "}
         <Text
           style={{
-            textAlign: "start",
+            textAlign: "flex-start",
             color: "#00095B",
             fontWeight: 500,
             fontSize: 19,
@@ -76,18 +106,17 @@ export function Dealers({dealer, ind}) {
         </Text>
         <Text
           style={{
-            textAlign: "start",
+            textAlign: "flex-start",
             color: "#00095B",
             fontWeight: 400,
             fontSize: 17,
           }}
         >
-          {deal[1]+" " + str}
+          {deal[1] + " " + str}
         </Text>
         <Text
           style={{
-            textAlign: "start",
-            textAlign: "start",
+            textAlign: "flex-start",
             color: "#00095B",
             fontWeight: 400,
             fontSize: 17,
@@ -96,16 +125,18 @@ export function Dealers({dealer, ind}) {
           Open-Closes 7pm
         </Text>
       </View>
-      <Image
-        source={require("../assets/SqArrow.png")}
-        resizeMode="contain" // Add this line
-        style={{
-          width: 30,
-          alignSelf: "center",
-          height: 20,
-          marginRight: 20,
-        }}
-      ></Image>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        {" "}
+        <Image
+          source={require("../assets/SqArrow.png")}
+          resizeMode="contain" // Add this line
+          style={{
+            width: 30,
+            alignSelf: "center",
+            height: 20,
+          }}
+        ></Image>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -124,10 +155,10 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   container2: {
-    textAlign: "start",
+    textAlign: "flex-start",
     alignSelf: "center",
-    alignItems: "start",
-    justifyContent: "start",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
@@ -139,9 +170,9 @@ const styles = StyleSheet.create({
     color: "#00095B",
     fontWeight: 500,
     fontSize: 21,
-    alignSelf: "start",
+    alignSelf: "center",
     marginTop: 20,
-    marginLeft: "20%",
-    marginBottom: 5,
+
+    marginBottom: 15,
   },
 });
