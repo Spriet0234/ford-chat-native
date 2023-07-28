@@ -503,11 +503,14 @@ export function DealerDrive6() {
 
 export function Conts2() {
   return (
+    <View>
     <Image
       source={require("../assets/mustang.png")}
       resizeMode="contain" // Add this line
       style={{ width: 180, height: 180, alignSelf: "center", marginRight: 10 }}
     ></Image>
+    <Text>Hi</Text>
+    </View>
   );
 }
 export function Times() {
@@ -538,7 +541,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
-    marginTop: 240,
+    marginTop: 30,
     height: "auto",
     position: "relative",
     padding: 20,
@@ -552,7 +555,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
-    marginTop: 240,
+    marginTop: 30,
     height: "auto",
     position: "relative",
     paddingleft: 140,
