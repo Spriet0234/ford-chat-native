@@ -16,7 +16,7 @@ let onPresses = [];
 export default function CarInfoTable({ data }) {
   //Array which will be used to generate table
   const [tableData, setTableData] = useState(
-    data.map((car) => [car.model, car.trim, car.msrp])
+    data[0].map((car) => [car.model, car.trim, car.msrp])
   );
   const [visible, setVisible] = useState(false);
   const [popupTitle, setPopupTitle] = useState("Info about...");
@@ -31,19 +31,19 @@ export default function CarInfoTable({ data }) {
     setPopupContent(
       <View>
         <Image
-          source={`${images[dt.model][dt.trim]}`}
-          style={{ alignSelf: "center", width: "300px", height: "200px" }}
+          source={{uri:`${images[dt.model][dt.trim]}`}}
+          style={{ alignSelf: "center", width: 300, height: 200 }}
         ></Image>
-        <p>
-          Trim: {dt.trim} <br />
-          MSRP: {dt.msrp} <br />
-          Body Size: {dt.body_size} <br />
-          Body Style: {dt.body_style} <br />
-          Seating Capacity: {dt.seating_capacity} <br />
-          Drivetrain {dt.drivetrain} <br />
-          Transmission: {dt.transmission} <br />
-          Horsepower: {dt.horsepower} <br />
-        </p>
+        <Text>
+          Trim: {dt.trim} {"\n"}
+          MSRP: {dt.msrp} {"\n"}
+          Body Size: {dt.body_size} {"\n"}
+          Body Style: {dt.body_style} {"\n"}
+          Seating Capacity: {dt.seating_capacity} {"\n"}
+          Drivetrain {dt.drivetrain} {"\n"}
+          Transmission: {dt.transmission} {"\n"}
+          Horsepower: {dt.horsepower} {"\n"}
+        </Text>
       </View>
     );
     setVisible(true);
