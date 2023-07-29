@@ -35,7 +35,7 @@ export function MapComponent({
       {renderDealer && (
         <View>
           <DealerDrive dealer={pickedDealer} />
-          <DealerDrive2 />
+          <DealerDrive2 dealer={pickedDealer} />
           <DealerDrive3 />
         </View>
       )}

@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import DatePicker from "react-datepicker";
 import dealers from "../src/jsons/dealerInfo.json";
+import data from "../src/jsons/dealerToTrim.json";
+import images from "../src/jsons/trimToDealer.json";
 //import "react-datepicker/dist/react-datepicker.css";
 
 export function DealerDrive({ dealer }) {
@@ -206,7 +208,19 @@ export function DealerDrive({ dealer }) {
     </View>
   );
 }
-export function DealerDrive2() {
+export function DealerDrive2(dealer) {
+  const a = [];
+  // console.log(data[dealer]);
+  // let a = data[dealer];
+  // let count = 0;
+  // let b = [];
+
+  // for (let i = 0; i < a.length; i++) {
+  //   b.push(a[i]);
+  //   count++;
+  //   if (count === 4) break;
+  // }
+
   return (
     <View style={styles.container}>
       <View
@@ -217,7 +231,7 @@ export function DealerDrive2() {
         }}
       >
         <Text style={styles.title2}>Models & Trims Available</Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{ flexDirection: "row", alignSelf: "flex-end" }}
         >
           <Text> View More</Text>
@@ -230,81 +244,73 @@ export function DealerDrive2() {
               marginLeft: 5,
             }}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <Text style={styles.text22}>Based on your selection</Text>
       <View style={{ flexDirection: "row" }}>
-        <Conts2 />
-        <Conts2 />
+        {a.map(() => {
+          return <Conts2 />;
+        })}
       </View>
     </View>
   );
 }
 
 export function DealerDrive3() {
+  const arr = [1, 2, 3];
   return (
     <View style={styles.container}>
-      <View
+      {" "}
+      <Text style={styles.title}>Next Appointments Available</Text>
+      {/* <TouchableOpacity
         style={{
-          padding: 15,
-          marginBottom: 20,
           flexDirection: "row",
-          justifyContent: "space-between",
+          position: "absolute",
+          right: 0,
+          top: 5,
+        }}
+      >
+        <Text> View More</Text>
+        <Image
+          source={require("../assets/RArrow.png")}
+          resizeMode="contain"
+          style={{
+            width: 30,
+            height: 20,
+            marginLeft: 5,
+          }}
+        />
+      </TouchableOpacity> */}
+      <TouchableOpacity
+        style={{
+          backgroundColor: "white",
+
+          padding: 10,
+          borderRadius: 10,
+          marginTop: 15,
           width: "100%",
         }}
       >
-        <Text style={styles.title}>Next Appointments Available</Text>
-        <TouchableOpacity
-          style={{ flexDirection: "row", alignSelf: "flex-end" }}
-        >
-          <Text> View More</Text>
-          <Image
-            source={require("../assets/RArrow.png")}
-            resizeMode="contain"
-            style={{
-              width: 30,
-              height: 20,
-              marginLeft: 5,
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity>
-          <View
-            style={{
-              backgroundColor: "white",
-              height: 150,
-              width: 150,
-              padding: 10,
-              borderRadius: 15,
-            }}
-          >
-            <Text style={{ fontWeight: 500, fontSize: 17 }}>
-              Click here to select date and time to find closest appointments
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <View
+        <Text
           style={{
-            flexDirection: "column",
-            justifyContent: "space-between",
-            marginLeft: 10,
+            fontWeight: 500,
+            fontSize: 17,
           }}
         >
-          <Times />
-          <Times />
-        </View>
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "space-between",
-            marginLeft: 10,
-          }}
-        >
-          <Times />
-          <Times />
-        </View>
+          Click here to select date and time to find closest appointments
+        </Text>
+      </TouchableOpacity>
+      <View
+        style={{
+          flexDirection: "column",
+          justifyContent: "space-between",
+          width: "100%",
+          marginTop: 0,
+        }}
+      >
+        {arr.map(() => {
+          return <Times />;
+        })}
       </View>
     </View>
   );
@@ -354,7 +360,7 @@ export function DealerDrive4() {
         <View
           style={{
             flexDirection: "column",
-            height: 250,
+
             alignSelf: "center",
             alignContent: "center",
           }}
@@ -514,25 +520,44 @@ export function DealerDrive6() {
   );
 }
 
-export function Conts2() {
+export function Conts2({ inp, imag }) {
   return (
-    <Image
-      source={require("../assets/mustang.png")}
-      resizeMode="contain" // Add this line
-      style={{ width: 180, height: 180, alignSelf: "center", marginRight: 10 }}
-    ></Image>
+    <TouchableOpacity
+      style={{
+        backgroundColor: "white",
+        borderRadius: 20,
+        paddingHorizontal: 25,
+        paddingVertical: 5,
+        marginRight: 10,
+      }}
+    >
+      <Image
+        source={{ uri: imag }}
+        resizeMode="contain" // Add this line
+        style={{ width: 120, height: 80, alignSelf: "center", marginRight: 10 }}
+      ></Image>
+      <Text
+        style={{
+          marginBottom: 7,
+          color: "#00095B",
+          fontWeight: 400,
+          fontSize: 17,
+        }}
+      >
+        {inp}
+      </Text>
+    </TouchableOpacity>
   );
 }
 export function Times() {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={{ width: "100%", marginTop: 10 }}>
       <View
         style={{
           backgroundColor: "white",
           borderRadius: 12,
           paddingHorizontal: 20,
           paddingVertical: 5,
-          margin: 5,
         }}
       >
         <Text style={{ fontSize: 18, fontWeight: 400 }}>Thursday, 7/13</Text>
@@ -585,7 +610,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     alignSelf: "flex-start",
     marginTop: 20,
-
+    marginBottom: 10,
     alignContent: "flex-end",
     alignSelf: "center",
   },
