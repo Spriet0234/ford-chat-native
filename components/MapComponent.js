@@ -14,7 +14,7 @@ import {
 import data from "../src/jsons/zipLocations.json";
 import dealerToTrim from "../src/jsons/dealerToTrim.json";
 import info from "../src/jsons/dealerInfo.json";
-import { DealerDrive } from "./DealerDrive";
+import { DealerDrive, DealerDrive2, DealerDrive3 } from "./DealerDrive";
 
 export function MapComponent({
   zip,
@@ -32,7 +32,13 @@ export function MapComponent({
 
   return (
     <View>
-      {renderDealer && <DealerDrive dealer={pickedDealer} />}
+      {renderDealer && (
+        <View>
+          <DealerDrive dealer={pickedDealer} />
+          <DealerDrive2 />
+          <DealerDrive3 />
+        </View>
+      )}
       {!renderDealer && (
         <View style={styles.container}>
           <Text style={styles.title}>Dealerships near you</Text>
