@@ -11,12 +11,12 @@ import {
   ScrollView,
 } from "react-native";
 import DatePicker from "react-datepicker";
-import dealers from '../src/jsons/dealerInfo.json'
+import dealers from "../src/jsons/dealerInfo.json";
 //import "react-datepicker/dist/react-datepicker.css";
 
 export function DealerDrive({ dealer }) {
   const info = dealers[dealer];
-  console.log(info)
+  console.log(info);
   const handlePress = () => Linking.openURL("https://www.example.com");
 
   return (
@@ -25,19 +25,18 @@ export function DealerDrive({ dealer }) {
         <Text style={styles.title}>{dealer}</Text>
       </View>
       <Image
-        source={require("../assets/deal.png")}
+        source={require("../assets/deal.jpeg")}
         resizeMode="contain" // Add this line
         style={{
-          alignSelf: "flex-end",
-
           width: 220,
           height: 180,
-          alignSelf: "flex-start",
+          alignSelf: "center",
           marginRight: 20,
-          marginTop: 0,
+          marginTop: 10,
+          marginBottom: 10,
         }}
       ></Image>
-      <View>
+      <View style={{ marginBottom: 25 }}>
         <View
           style={{
             flexDirection: "row",
@@ -68,7 +67,7 @@ export function DealerDrive({ dealer }) {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             alignContent: "center",
           }}
         >
@@ -92,14 +91,14 @@ export function DealerDrive({ dealer }) {
               marginBottom: 10,
             }}
           >
-            {dealer.toLowerCase().replace(/\s/g, '') +".com"}
+            {dealer.toLowerCase().replace(/\s/g, "") + ".com"}
           </Text>
         </View>
 
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "start",
+            justifyContent: "flex-start",
             alignContent: "center",
           }}
         >
@@ -129,7 +128,7 @@ export function DealerDrive({ dealer }) {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "start",
+            justifyContent: "flex-start",
             alignContent: "center",
           }}
         >
@@ -180,15 +179,28 @@ export function DealerDrive({ dealer }) {
           </Text>
         </View>
       </View>
-      <TouchableOpacity style={{ flexDirection: "row", marginTop: 15 }}>
+      <TouchableOpacity
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          position: "absolute",
+          left: 20,
+          bottom: 20,
+        }}
+        //onPress={back}
+      >
         <Image
           source={require("../assets/arrow.png")}
-          resizeMode="contain"
+          resizeMode="contain" // Add this line
           style={{
             width: 30,
             height: 20,
+            alignSelf: "flex-start",
+            marginRight: 0,
           }}
-        />
+        ></Image>
         <Text> Back</Text>
       </TouchableOpacity>
     </View>
@@ -234,6 +246,7 @@ export function DealerDrive3() {
     <View style={styles.container}>
       <View
         style={{
+          padding: 15,
           marginBottom: 20,
           flexDirection: "row",
           justifyContent: "space-between",
@@ -545,13 +558,14 @@ const styles = StyleSheet.create({
     height: "auto",
     position: "relative",
     padding: 20,
-    paddingTop: 0,
+    paddingTop: 15,
+    marginBottom: 20,
   },
   container2: {
-    textAlign: "start",
+    textAlign: "flex-start",
     alignSelf: "center",
-    alignItems: "start",
-    justifyContent: "start",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
     backgroundColor: "#113B7A1A",
     width: "90%",
     borderRadius: 30,
@@ -562,7 +576,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#00095B",
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: 21,
     alignSelf: "center",
     marginTop: 5,
@@ -572,7 +586,7 @@ const styles = StyleSheet.create({
     color: "#00095B",
     fontWeight: 700,
     fontSize: 24,
-    alignSelf: "start",
+    alignSelf: "flex-start",
     marginTop: 20,
 
     alignContent: "flex-end",
@@ -589,7 +603,7 @@ const styles = StyleSheet.create({
     color: "#00095B",
     fontWeight: 400,
     fontSize: 17,
-    alignSelf: "start",
+    alignSelf: "flex-start",
     marginTop: -4,
     marginBottom: 1,
     marginLeft: 0,
